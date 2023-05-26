@@ -1,0 +1,191 @@
+@import "src/globals.scss";
+
+.architects-edit {
+  height: 85vh;
+  background: $deg-blue-d;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  &__content {
+    max-width: 1740px;
+    height: 90%;
+    background: $deg-gray;
+    border-radius: $b-r;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    box-shadow: $b-shadow;
+	width: 80vw;
+	overflow: auto;
+	&-title {
+		margin: 20px 0;
+		text-transform: uppercase;
+	}
+	&-form{
+		width: 90%;
+		padding: 20px;
+		background: $deg-black;
+		& > *{
+			width: 90%;
+		}
+		&-image {
+			margin: auto;
+			background: $white;
+			background: $brick;
+			background-size: cover;
+			padding: 10px 0;
+			border-radius: 8px;
+			&-container {
+				margin: 0 auto;
+				width: 200px;
+				height: 200px;
+				overflow: hidden;
+				border-radius: 50%;
+				&-img{
+					width: 100%;
+					height: 100%;
+					object-fit: cover;
+				}
+			}
+			&-button, &-delete{
+				display: block;
+				width: 200px;
+				padding: 10px;
+				background: $blue;
+				border: none;
+				color: $white;
+				box-shadow: $b-shadow;
+				margin: 10px auto;
+				border-radius: 5px;
+				cursor: pointer;
+				&:hover{
+					background: $blue_l;
+					color: $white;
+				}
+			}
+			&-delete {
+				background: $red;
+				&:hover{
+					background: $red_l;
+					color: $white;
+				}
+			}
+			&-upload{
+				display: none;
+			}
+			&-rol{
+				background: transparent;
+				border: none;
+				outline: none;
+				margin: auto;
+				display: block;
+				text-align: center;
+				letter-spacing: 1ch;
+				font-weight: bold;
+				&.margin-top {
+					margin-top: 10px;
+					font-size: 20px;
+				}
+			}
+		}
+		&-dates{
+			margin: auto;
+			background: $deg-blue-d;
+			padding: 10px 20px;
+			display: grid;
+			grid-template-columns: repeat(2, 1fr);
+			& label{
+				color: white;
+				padding: 5px;
+				& p {
+					text-transform: capitalize;
+					margin-bottom: 5px;
+				}
+				& input {
+					width: 90%;
+					margin: 0 auto;
+					display: block;
+					padding: 5px;
+					outline: none;
+					border: none;
+					background: $deg-gray;
+					&:read-only{
+					cursor: not-allowed;
+					}
+				}
+				& p {
+					text-align: center;
+				}
+			}
+			&-about {
+				grid-column: 1 / span 2;
+				& input {
+					width: 95%!important;
+				}
+			}
+			&-change{
+				grid-column: 1 / span 2;
+				display: flex;
+				justify-content: center;
+				align-items: center;
+				&-button {
+					border: none;
+					background: none;
+					outline: none;
+					font-weight: bold;
+					color: $gray_el;
+					cursor: pointer;
+					&.cancel {
+						color: $red;
+						&:hover{
+							color: $red-l;
+						}
+					}
+					&:hover {
+						filter: brightness(3);
+					}
+				}
+			}
+		
+		}
+		&-buttons {
+			margin: auto;
+			display: flex;
+			justify-content: space-around;
+			padding: 10px;
+			background: $black;
+			border-radius: 0 0 8px 8px ;
+			& button {
+				display: block;
+				width: 200px;
+				padding: 10px;
+				border: none;
+				color: $white;
+				box-shadow: $b-shadow;
+				margin: 10px auto;
+				border-radius: 5px;
+				cursor: pointer;
+				&:hover{
+					filter: contrast(2);
+				}
+				&:disabled{
+					background: $gris;
+					cursor: not-allowed;
+				}
+				&:disabled:hover {
+					filter: none;
+				}
+			}
+			&-back{
+				background: $red;
+			}
+			&-edit {
+				background: $blue;
+			}
+			&-save{
+				background: $green-v;
+			}
+		}
+	}
+  }
+}

@@ -1,0 +1,39 @@
+@import "src/globals.scss";
+
+.Container {
+  height: 85vh;
+  width: 100vw;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: url("../home/img/white-brick-wall.jpg");
+  filter: invert(2);
+  & .Fzf {
+    filter: invert(1);
+    width: 60%;
+    height: 80%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    color: $white;
+    & h2 {
+      font-size: 12rem;
+      margin: 0;
+    }
+    & p {
+      font-size: 2rem;
+      height: 20%;
+    }
+    & button {
+      height: 15%;
+      width: 20%;
+      border: none;
+      color: $white;
+      background: $blue;
+      &:hover {
+        background: $blue-d;
+      }
+    }
+  }
+}

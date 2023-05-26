@@ -1,0 +1,6 @@
+<section class="architects-band" [ngClass]="{'border-radius': borderRadius}">
+    <h2 class="architects-band__title">{{title}}</h2>
+    <button *ngIf="showButton" class="architects-band__plus" (click)="onClick()">
+      <i class="fas fa-plus-circle"></i>
+    </button>
+  </section>

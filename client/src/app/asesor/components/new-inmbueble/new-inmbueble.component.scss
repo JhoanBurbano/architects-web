@@ -1,0 +1,283 @@
+@import 'src/globals.scss';
+
+.architects-new {
+	min-height: 85vh;
+	width: 100vw;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	background: $deg-blue-d;
+
+	&__content {
+		background-size: cover;
+		background: $deg-gray;
+		width: 70%;
+		max-height: 700px;
+		padding: 20px;
+		overflow-y: auto;
+		border-radius: 8px;
+		text-align: center;
+
+		&-form {
+			border-radius: 8px;
+			background: $deg-black;
+			display: flex;
+			flex-direction: column;
+			align-items: center;
+			padding: 20px 10px;
+			width: 80%;
+			margin: auto;
+
+			&-upload {
+				height: 550px;
+				width: 90%;
+				margin: auto;
+
+				&-view {
+					height: 400px;
+					background: $black;
+					border-radius: 8px 8px 0 0;
+					overflow: hidden;
+
+					&-img {
+						height: 100%;
+						width: 100%;
+						object-fit: contain;
+						backdrop-filter: contrast(0.5);
+					}
+				}
+
+				&-list {
+					background: $black;
+					height: 100px;
+					display: grid;
+					grid-template-columns: repeat(5, 1fr);
+					border-radius: 0 0 8px 8px;
+					overflow: hidden;
+
+					&-img {
+						height: 100px;
+						position: relative;
+						display: flex;
+						justify-content: center;
+						backdrop-filter: contrast(0.5);
+						cursor: pointer;
+
+						& span {
+							position: absolute;
+							background-color: $red;
+							color: $white;
+							width: 10px;
+							height: 10px;
+							display: flex;
+							font-size: 8px;
+							justify-content: center;
+							align-items: center;
+							border-radius: 50%;
+							top: 0;
+							right: 0;
+							cursor: pointer;
+						}
+
+						& img {
+							height: 100%;
+							width: 100%;
+							object-fit: contain;
+						}
+					}
+				}
+
+				&-button {
+					margin: auto;
+					display: block;
+					margin-top: 10px;
+					padding: 10px;
+					background: $white;
+					border: none;
+					outline: none;
+					color: $blue;
+					border-radius: 5px;
+					cursor: pointer;
+
+					&:hover {
+						background: $blue_l;
+						color: $white;
+					}
+
+					&:disabled {
+						background: $gray_l;
+						cursor: not-allowed;
+						color: $white;
+					}
+				}
+
+				& input {
+					display: none;
+				}
+			}
+
+			&-inputs {
+				color: $black;
+				display: grid;
+				background: $brick;
+				background-size: cover;
+				grid-template-columns: repeat(2, 1fr);
+				justify-items: center;
+				width: 90%;
+				border-radius: 5px;
+
+				& > label {
+					width: 100%;
+
+					& * {
+						border: none;
+						outline: none;
+						padding: 5px;
+						background: transparent;
+						text-align: center;
+
+						&:not(p, i, b) {
+							backdrop-filter: blur(1.5px);
+							background: #55b2;
+							border: 1px solid $black;
+							color: $black;
+							border-radius: 5px;
+							width: 95%;
+							margin: auto;
+							display: block;
+						}
+					}
+
+					& p {
+						font-weight: bold;
+					}
+				}
+
+				&-attributes {
+					display: flex;
+					flex-direction: column;
+					justify-content: space-around;
+					align-items: stretch;
+					width: 95%;
+					border-radius: 5px;
+					overflow: hidden;
+
+					& label {
+						padding: 5px 0;
+						display: flex;
+						align-items: center;
+						justify-content: space-evenly;
+						background: $deg-blue-t;
+						box-shadow: $b-shadow-t;
+
+						& i {
+							color: $white;
+						}
+
+						& input {
+							width: 40%;
+							border: none;
+							outline: none;
+							border-radius: 4px;
+						}
+					}
+
+					&-rooms {
+						& i {
+							width: 16px;
+							height: 16px;
+							overflow: hidden;
+							display: flex;
+							align-items: center;
+							justify-content: center;
+						}
+					}
+				}
+
+				&-tags {
+					grid-column: 1 / span 2;
+					align-self: center;
+					justify-self: center;
+
+					& input {
+						width: 97.5% !important;
+						margin: auto;
+						display: block;
+					}
+
+					& p.tags-container {
+						padding: 0 !important;
+						margin: 5px auto;
+						font-size: 0.6rem;
+						border: 1px solid $black;
+						color: $black;
+						background: $black;
+						border-radius: 5px;
+						width: 97.5%;
+						word-wrap: normal;
+						display: flex;
+						justify-items: start;
+
+						& b {
+							font-weight: bold;
+							cursor: pointer;
+							display: inline-block;
+							color: white;
+
+							&:hover {
+								color: $red;
+							}
+						}
+
+						& i {
+							padding: 5px;
+							display: block;
+							background: none;
+							color: white;
+							margin: auto;
+						}
+					}
+				}
+			}
+
+			&-buttons {
+				display: flex;
+				justify-content: space-around;
+				width: 20%;
+				margin: auto;
+
+				&-submit {
+					background: $green;
+				}
+
+				&-return {
+					background: $red;
+					color: $white;
+					margin-right: 5px;
+				}
+
+				& button {
+					margin: auto;
+					display: block;
+					margin-top: 10px;
+					padding: 10px;
+					border: none;
+					outline: none;
+					border-radius: 5px;
+					cursor: pointer;
+
+					&:hover {
+						filter: saturate(0.8);
+					}
+
+					&:disabled {
+						background: $gray_l;
+						cursor: not-allowed;
+						color: $white;
+					}
+				}
+			}
+		}
+	}
+}

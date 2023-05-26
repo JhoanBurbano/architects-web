@@ -1,0 +1,25 @@
+<div class="Container">
+    <div class="Chart">
+      <h2>Log In</h2>
+      <form [formGroup]="loginForm" (ngSubmit)="loginUser()" >
+        <label>
+          <input formControlName="email" name="email" type="email" placeholder="ingrese su e-mail" />
+      </label>
+      <div style="font-size: .8rem; color: #300; overflow: visible;" class="txt-dgr"  *ngIf="loginForm.get('email')?.hasError('required') && loginForm.get('email')?.touched"><p>email is <strong>Required</strong> </p></div>
+      <label>
+          <input formControlName='password' name="password" type="password" placeholder="ingrese su contraseña" />
+        </label>
+        <div style="font-size: .8rem; color: #300; overflow: visible;" class="txt-dgr"  *ngIf="loginForm.get('password')?.hasError('required') && loginForm.get('password')?.touched"><p>password is <strong>Required</strong> </p></div>
+        <re-captcha formControlName="captcha" required [siteKey]="SITE_KEY" style="overflow: visible;"></re-captcha>
+        <!-- <div class="captcha">
+          <ngx-recaptcha2 #captchaElem
+          [siteKey]="siteKey"
+          formControlName="recaptcha">
+        </ngx-recaptcha2>
+        </div> -->
+        <button type="submit" [disabled]="!loginForm.valid">Log In</button>
+        <a (click)="recPass()">Recupera tu contraseña</a>
+      </form>
+    </div>
+  </div>
+  

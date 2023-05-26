@@ -1,0 +1,105 @@
+@import 'src/globals.scss';
+
+.Container {
+	width: 100vw;
+	height: 85vh;
+	background: $deg-blue-d;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+
+	& .Chart {
+		width: 80%;
+		height: 90%;
+		border-radius: .25rem;
+		overflow: hidden;
+		background: $deg-gray;
+		box-shadow: $b-shadow;
+		padding: 1.5rem;
+
+		& h2{
+			text-align: center;
+			letter-spacing: .5rem;
+		}
+
+		& .Table {
+			padding: 1rem;
+			width: 100%;
+            overflow-y: auto;
+			& .Cell {
+				text-align: center;
+				padding: .5rem;
+
+				&.One {
+					width: 25%;
+                    font-weight: bold;
+				}
+
+				&.Two {
+					width: 15%;
+				}
+				&.Three {
+					width: 25%;
+				}
+				&.Four {
+					width: 15%;
+				}
+				&.Option {
+					width: 20%;
+				}
+			}
+
+			& .Head {
+				display: flex;
+				justify-content: space-evenly;
+				// border: .05rem dashed $blue-d;
+                background: $deg-blue-d;
+				& .Cell {
+					color: $white;
+					font-weight: bold;
+				}
+			}
+			& .Body {
+				width: 100%;
+				display: flex;
+				flex-direction: column;
+				& .Row {
+					display: flex;
+					justify-content: space-evenly;
+					border: .05rem dashed $blue-d;
+                    &:hover{
+                        border-color: $gray;
+                    }
+					& .Cell.Option {
+						display: flex;
+						justify-content: space-evenly;
+                        & a{
+                            cursor: pointer;
+                        }
+                        & a:nth-child(1){
+                            color: #66f;
+                            &:hover{
+                                filter: grayscale(.8);
+                                transform: scale(1.1);
+                            }
+                        }
+                        & a:nth-child(2){
+                            color: #f66;
+                            &:hover{
+                                filter: grayscale(.8);
+                                transform: scale(1.1);
+                            }
+                        }
+                        & a:nth-child(3){
+                            color: #6f6;
+                            &:hover{
+                                filter: grayscale(.8);
+                                transform: scale(1.1);
+                            }
+                        }
+					}
+				}
+			}
+		}
+	}
+}

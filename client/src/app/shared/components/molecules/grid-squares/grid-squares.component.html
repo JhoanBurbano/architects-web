@@ -1,0 +1,12 @@
+<div class="architects-grid-squares">
+    <app-square-card
+    *ngFor="let item of inmuebles"
+    [item]="item"
+    [showControls]="showControls"
+    [showLikes]="showLikes"
+    (like)="addFavorite($event)"
+    (delete)="deleteInmueble($event)"
+    (edit)="editInmueble($event)"
+    (view)="view.emit($event)"
+    ></app-square-card>
+</div>

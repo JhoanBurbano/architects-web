@@ -1,0 +1,28 @@
+<div class="Container">
+    <div class="Chart">
+        <h2>USER LIST</h2>
+        <div *ngIf="accountList.length > 0" class="Table">
+            <div class="Head">
+                <div class="Cell One">Name</div>
+                <div class="Cell Two">Rol</div>
+                <div class="Cell Three">Email</div>
+                <div class="Cell Four">Number</div>
+                <div class="Cell Option">Options</div>
+            </div>
+            <div class="Body" >
+                <div class="Row"  *ngFor="let account of accountList">
+                    <div class="Cell One">{{account.name}} {{' '}} {{account.lastname}}</div>
+                    <div class="Cell Two">{{account.rol}}</div>
+                    <div class="Cell Three">{{account.email}}</div>
+                    <div class="Cell Four">{{account.number}}</div>
+                    <div class="Cell Option">
+                        <a routerLInk=""><i class="fas fa-edit"></i></a>
+                        <a routerLInk="" (click)="eliminarUsuario(account.email)" ><i class="fas fa-trash-restore"></i></a>
+                        <a routerLInk=""><i class="fas fa-eye"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div *ngIf="accountList.length === 0">Nada para mostrar</div>
+    </div>
+</div>

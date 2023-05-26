@@ -1,0 +1,55 @@
+@import 'src/globals.scss';
+nav{
+    z-index: 100;
+    position: sticky;
+    width: 100vw;
+    height: 10vh;
+    background: linear-gradient(to right, #c5c5c5, #eef2f3);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 0 1.5rem #0005;
+    top:0;
+    & >*{
+      display: flex;
+      justify-content: space-around;
+    }
+    & ul{
+      width: 45%;
+      &  li{
+        list-style: none;
+        & a{
+          text-decoration: none;
+          color: #666;
+          &:hover{
+            color:black;
+          }
+          &.Active{
+            font-weight: bold;
+          }
+          & i {
+            margin: 0 .5rem;
+          }
+        }
+      }
+    }
+    & > div{
+      width: 25%;
+      font-size: 1.5rem;
+      & a {
+        text-decoration: none;
+        color: black;
+      }
+    }
+    & .logout{
+      border:none;
+      font-size: 1.5rem;
+      color: #666;
+      cursor: pointer;
+      &:hover{
+        // font-weight: bold;
+        color:black;
+      }
+    }
+  }
+  

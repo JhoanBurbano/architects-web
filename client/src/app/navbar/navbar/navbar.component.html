@@ -1,0 +1,9 @@
+<nav>
+    <div class="logo">
+      <a routerLink="/" ><p><b>ARCH</b>ITECTS</p></a>
+    </div>
+    <ul>
+      <li *ngFor="let link of list"><a [routerLink]="link.url" (click)="link.function || ''" routerLinkActive="Active" ><i [class]="link.icon" ></i>{{link.name}}</a></li>
+      <li *ngIf="isLog"><button class="logout"(click)="logout()"><i class="fas fa-sign-out-alt"></i></button></li>
+    </ul>
+</nav>

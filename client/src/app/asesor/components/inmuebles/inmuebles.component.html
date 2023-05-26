@@ -1,0 +1,14 @@
+<div class="architects-imuebles">
+  <div class="architects-imuebles__chart">
+    <div class="architects-imuebles__chart-section">
+      <app-band title="Tus Publicaciones" [borderRadius]="true" [showButton]="true" (buttonClick)="newInmueble()"></app-band>
+      <app-grid-squares
+      [items]="inmuebles"
+      [showControls]="true"
+      (delete)="deleteInmueble($event)"
+      (edit)="editInmueble($event)"
+      (view)="viewInmueble($event)"
+      ></app-grid-squares>
+    </div>
+  </div>
+</div>

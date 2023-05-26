@@ -1,0 +1,40 @@
+<div class="Container">
+    <div class="Chart">
+      <h2>Sing Up</h2>
+      <form [formGroup]="signupForm" (ngSubmit)="signUp()" required>
+        <label>
+          <input formControlName="name" name="name" type="text" placeholder="ingrese su nombre"  required/>
+        </label>
+        <div style="font-size: .8rem; color: #300; overflow: visible;" class="txt-dgr"  *ngIf="signupForm.get('name')?.hasError('required') && signupForm.get('name')?.touched"><p>Name is <strong>Required</strong> </p></div>
+        <label>
+          <input formControlName="lastname" name="lastname" type="text" placeholder="ingrese su apellido"  required/>
+        </label>
+        <div style="font-size: .8rem; color: #300; overflow: visible;" class="txt-dgr"  *ngIf="signupForm.get('lastname')?.hasError('required') && signupForm.get('lastname')?.touched"><p>Lastname is <strong>Required</strong> </p></div>
+        <label>
+          <select formControlName="rol" name="rol" required>
+            <option value="" selected disabled>Seleccione su rol</option>
+            <option value="CLIENT">Cliente</option>
+            <option value="ASESOR">Asesor</option>
+            <option value="SECURITY">Security</option>
+            <option value="ADMIN">Administrador</option>
+          </select>
+        </label>
+        <div style="font-size: .8rem; color: #300; overflow: visible;" class="txt-dgr"  *ngIf="signupForm.get('rol')?.hasError('required') && signupForm.get('rol')?.touched"><p>rol is <strong>Required</strong> </p></div>
+        <label>
+          <input formControlName="number" name="number" type="number" placeholder="ingrese su telefono"  required/>
+        </label>
+        <div style="font-size: .8rem; color: #300; overflow: visible;" class="txt-dgr"  *ngIf="signupForm.get('number')?.hasError('required') && signupForm.get('number')?.touched"><p>number is <strong>Required</strong> </p></div>
+        <label>
+          <input formControlName="email" name="email" type="email" placeholder="ingrese su e-mail"  required/>
+      </label>
+      <div style="font-size: .8rem; color: #300; overflow: visible;" class="txt-dgr"  *ngIf="signupForm.get('email')?.hasError('required') && signupForm.get('email')?.touched"><p>email is <strong>Required</strong> </p></div>
+      <label>
+          <input formControlName="password" name="password" type="password" placeholder="ingrese su contraseña"  required/>
+        </label>
+        <div style="font-size: .8rem; color: #300; overflow: visible;" class="txt-dgr"  *ngIf="signupForm.get('password')?.hasError('required') && signupForm.get('password')?.touched"><p>password is <strong>Required</strong></p></div>
+        <re-captcha formControlName="captcha" required [siteKey]="SITE_KEY" style="overflow: visible;"></re-captcha>
+        <button type="submit" [disabled]="!signupForm.valid">Sing Up</button>
+      </form>
+    </div>
+  </div>
+  

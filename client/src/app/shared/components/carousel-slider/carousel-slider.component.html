@@ -1,0 +1,10 @@
+<div class="architects-carousel" *ngIf="images.length">
+        <figure class="architects-carousel__view">
+            <img class="architects-carousel__view-img" [src]="currentImage" alt="slide">
+        </figure>
+        <div class="architects-carousel__list">
+            <figure class="architects-carousel__list-item" *ngFor="let item of images; let i = index" (click)="currentImage = item">
+                <img class="architects-carousel__list-item-img" [src]="item" [alt]="'slide-small-' + i">
+            </figure>
+        </div>
+</div>

@@ -1,0 +1,42 @@
+<div class="architects-profile">
+  <aside class="architects-profile-panel">
+    <figure class="architects-profile-panel-container" [ngClass]="{'load': !isLoadImage}">
+      <img
+      *ngIf="datos.profile"
+        class="architects-profile-panel-container-img"
+        [src]="datos.profile"
+        [alt]="datos.name"
+        (load)="changeImage(true)"
+      />
+    </figure>
+    <div class="architects-profile-panel-info">
+      <h2 class="architects-profile-panel-info-name">{{ datos.name }}</h2>
+      <p class="architects-profile-panel-info-rol">{{ datos.rol }}</p>
+      <p class="architects-profile-panel-info-phone">
+        Telefono: <b>{{ datos.number }}</b>
+      </p>
+      <p class="architects-profile-panel-info-email">
+        Email: <b>{{ datos.email }}</b>
+      </p>
+    </div>
+    <ng-container [ngSwitch]="datos.rol">
+      <div class="architects-profile-panel-list" *ngSwitchCase="'CLIENT'">
+        <h3 class="architects-profile-panel-list-title">Yours favorites</h3>
+        <app-cards [card]="card" *ngFor="let card of cards"></app-cards>
+      </div>
+      <div class="architects-profile-panel-list" *ngSwitchCase="'ASESOR'">
+        <h3 class="architects-profile-panel-list-title">Your publications</h3>
+        <app-cards [card]="card" *ngFor="let card of cards"></app-cards>
+      </div>
+    </ng-container>
+  </aside>
+  <main class="architects-profile-content" >
+    <section class="architects-profile-content-card" *ngIf="datos.rol">
+      <app-band [title]="datos.rol === 'CLIENT' ? 'Tus Favoritos' : 'Tus Publicacioones'" [borderRadius]="true"></app-band>
+      <app-grid-squares
+      [items]="cards"
+      [showLikes]="datos.rol === 'CLIENT'"
+      ></app-grid-squares>
+    </section>
+  </main>
+</div>

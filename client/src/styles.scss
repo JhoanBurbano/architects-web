@@ -1,0 +1,42 @@
+/* You can add global styles to this file, and also import other style files */
+// html{
+//   font-size: 10px;
+// }
+@import 'src/globals.scss';
+html {
+	padding: 0;
+	margin: 0;
+	box-sizing: border-box;
+	font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana,
+		sans-serif;
+	overflow-x: hidden;
+}
+
+.Container {
+	overflow-x: hidden;
+}
+
+/* ===== Scrollbar CSS ===== */
+/* Firefox */
+* {
+	scrollbar-width: auto;
+	scrollbar-color: $blue #ffffff;
+	padding: 0;
+	margin: 0;
+	box-sizing: border-box;
+}
+
+/* Chrome, Edge, and Safari */
+*::-webkit-scrollbar {
+	width: .35rem;
+}
+
+*::-webkit-scrollbar-track {
+	background: transparent;
+}
+
+*::-webkit-scrollbar-thumb {
+	background-color: $blue;
+	border-radius: 1px;
+}
+

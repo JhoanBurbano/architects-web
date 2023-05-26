@@ -1,0 +1,54 @@
+<div class="architects-edit">
+    <div class="architects-edit__content">
+        <h2 class="architects-edit__content-title">Tu Perfil</h2>
+        <div [formGroup]="editUserForm" class="architects-edit__content-form" *ngIf="datos && datos.profile">
+            <div class="architects-edit__content-form-image">
+                <figure class="architects-edit__content-form-image-container">
+                    <img class="architects-edit__content-form-image-container-img" [src]="newPhoto || datos.profile" alt="">
+                </figure>
+                <button class="architects-edit__content-form-image-button" (click)="onClickUpload()" *ngIf="isEdit && !newPhoto">upload file</button>
+                <button class="architects-edit__content-form-image-delete" (click)="onDeleteImage()" *ngIf="isEdit && newPhoto">delete file</button>
+                <input class="architects-edit__content-form-image-upload" type="file" (change)="onSelectFile($event)" #upload/>
+                <input class="architects-edit__content-form-image-rol" [ngClass]="{'margin-top': !isEdit}" formControlName="rol"/>
+            </div>
+            <div class="architects-edit__content-form-dates">
+                <label for="name" class="architects-edit__content-form-dates-name">
+                    <p>name</p>
+                    <input id="name" [readonly]="!isEdit" type="text" formControlName="name">
+                </label>
+                <label for="lastname" class="architects-edit__content-form-dates-lastname">
+                    <p>lastname</p>
+                    <input id="lastname" [readonly]="!isEdit" type="text" formControlName="lastname" />
+                </label>
+                <label for="about" class="architects-edit__content-form-dates-about">
+                    <p>about you</p>
+                    <input id="about" [readonly]="!isEdit" type="text" formControlName="desc">
+                </label>
+                <label for="number" class="architects-edit__content-form-dates-number">
+                    <p>number</p>
+                    <input id="number" [readonly]="!isEdit" type="text" formControlName="number">
+                </label>
+                <label for="email" class="architects-edit__content-form-dates-email">
+                    <p>email</p>
+                    <input id="email" readonly type="email" formControlName="email">
+                </label>
+                <label for="password" class="architects-edit__content-form-dates-password" *ngIf="changePassword">
+                    <p>password</p>
+                    <input id="password" [readonly]="!isEdit" type="password" formControlName="password" autocomplete="new-password">
+                </label>
+                <label for="c-password" class="architects-edit__content-form-dates-password" *ngIf="changePassword">
+                    <p>confirm password</p>
+                    <input id="c-password" type="password" autocomplete="new-password" formControlName="confirmPassword">
+                </label>
+                <div class="architects-edit__content-form-dates-change" *ngIf="isEdit">
+                    <button class="architects-edit__content-form-dates-change-button" [ngClass]="{'cancel': changePassword}" (click)="onChangePassword(!changePassword)">{{!changePassword ? "Cambiar password" : "Cancelar"}}</button>
+                </div>
+            </div>
+            <div class="architects-edit__content-form-buttons">
+                <button class="architects-edit__content-form-buttons-back" (click)="onCancelEdit()">Regresar</button>
+                <button class="architects-edit__content-form-buttons-edit" (click)="editProfile()">Editar</button>
+                <button class="architects-edit__content-form-buttons-save" (click)="actualizarPerfil()" [disabled]="!isEdit || !editUserForm.valid">Guardar Cambios</button>
+            </div>
+        </div>
+    </div>
+</div>

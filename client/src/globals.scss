@@ -1,0 +1,65 @@
+$font-n: #201d46;
+$b-shadow: 0 0 1.5rem #0005;
+$b-shadow-t: .2rem .1rem .5rem #0003;
+$b-shadow-r: 3px 0 5px -1px  #0006;
+
+
+//Degradados
+$deg-blue-d:linear-gradient(to right, #0f0c29, #302b63, #24243e);
+$deg-blue-t:linear-gradient(to top, #24243e, #1e1b3a, #24243e);
+$deg-brown: linear-gradient(to top, #433117, #ce9f58);
+$deg-gray: linear-gradient(to top, #c5c5c5, #eef2f3);
+$deg-gray-l:  linear-gradient(to right, #dbdbdb, #cfcfcf);  /* Chrome 10-25, Safari 5.1-6 */
+$deg-bluegray: linear-gradient(to top, #141e30, #243b55); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+$deg-inputs:linear-gradient(to top, #4441 0%, #7771 40%, #0000 98%);
+$deg-black:linear-gradient(to bottom, #414345, #232526);
+$deg-mango: linear-gradient(to right, #f2994a, #f2c94c);
+
+//color
+$green: #6f6;
+$white: #fff;
+$white_t: #fff4;
+$blue-l:#88f;
+$blue: #302b63;
+$blue-o: #302b6355;
+$blue-d: #24243e;
+$gray: rgb(69, 67, 100);
+$gray_l: rgb(136, 135, 147);
+$gray_el:rgb(235, 235, 235);
+$font-gray: #333;
+$gris: #555;
+$black-t:#0008;
+$red:#c22;
+$red_l:#f44;
+$black-o:#222;
+$green-v: #292;
+$dollar: rgb(65, 89, 65);
+$black:#111;
+$blue_shadow: #0ad;
+
+//Medidas
+$b-r: .5rem ;
+$f-s-t: .8rem;
+
+.button {
+    background: $blue;
+    border: none;
+    color: $white;
+    border-radius: .15rem;
+    &:hover{
+        background:$blue-d ;
+    }
+}
+
+//Backgrounds
+$brick: url(https://burbanostudio-assets.s3.us-east-2.amazonaws.com/projects/ARCHITECTS/assets/white-brick-wall.jpg);
+$brick_t: url(https://burbanostudio-assets.s3.us-east-2.amazonaws.com/projects/ARCHITECTS/assets/search-banner.png);
+$rocks: url(https://burbanostudio-assets.s3.us-east-2.amazonaws.com/projects/ARCHITECTS/assets/rock-wall.png);
+
+
+//animations
+@keyframes shimmer {
+    100% {
+      transform: translateX(100%);
+    }
+  }
