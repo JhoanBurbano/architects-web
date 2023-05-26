@@ -4,11 +4,11 @@ import * as dotenv from 'dotenv';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
-  dotenv.config({ path: `.env.${process.env.NODE_ENV}` });
+  dotenv.config();
   app.enableCors({
     origin: JSON.parse(process.env.HOST_WEB),
     methods: 'true',
   });
-  await app.listen(3000);
+  await app.listen(3001);
 }
 bootstrap();
