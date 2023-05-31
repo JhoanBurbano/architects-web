@@ -39,18 +39,4 @@ export class HomeService {
   getComment(idInm:any):Promise<any>{
     return this.http.get(`${this.url}inmuebles/comments?idInm=${idInm}`).toPromise()
   }
-
-
-
-  recoveryPass(email:any):Promise<any>{
-    return this.http.get(`${this.url}forgot-password?email=${email}`).toPromise() 
-  }
-
-  isTokenValid(token:any):Promise<any>{
-    return this.http.get(`${this.url}verify-token?token=${token}`).toPromise() 
-  }
-
-  changePass(newPass:any):Promise<any>{
-    return this.http.patch(`${this.url}change-password`, newPass).toPromise() 
-  }
 }

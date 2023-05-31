@@ -1,63 +1,87 @@
-import { HttpClient } from '@angular/common/http';
-import { Injectable } from '@angular/core';
-import { CookieService } from 'ngx-cookie-service';
-import { Observable, BehaviorSubject} from 'rxjs';
-import { tap } from 'rxjs/operators';
-import { Usuario, UsuarioLogin, JwtResponseI, UserI, authentificated} from '../models/user';
-import { environment } from 'src/environments/environment';
+import { HttpClient } from "@angular/common/http";
+import { Injectable } from "@angular/core";
+import { CookieService } from "ngx-cookie-service";
+import { Observable, BehaviorSubject } from "rxjs";
+import { tap } from "rxjs/operators";
+import {
+  Usuario,
+  UsuarioLogin,
+  JwtResponseI,
+  UserI,
+  authentificated,
+  LoginI,
+} from "../models/user";
+import { environment } from "src/environments/environment";
 
 @Injectable()
 export class UserService {
-  public url=`${environment.API_URL}auth/`
-  authSubject = new BehaviorSubject(false)
-  private token: string | null = null;
-  constructor(private http: HttpClient, private cookieService: CookieService) { }
+  public url = `${environment.API_URL}auth/`;
+  constructor(private http: HttpClient, private cookieService: CookieService) {}
 
-  public signup(user: UserI):Observable<JwtResponseI>{
-    return this.http.post<JwtResponseI>(`${this.url}signup`, user).pipe(tap(
-      (res:JwtResponseI)=>{
-        if(res){
-          //guardar
-        this.saveToken(res.dataUser.accessToken, res.dataUser.expiresIn)
-        this.cookieService.set('USER', res.dataUser.name, parseInt(res.dataUser.expiresIn), '/', 'localhost',false,  "None")
-        this.cookieService.set('ROL', res.dataUser.rol, parseInt(res.dataUser.expiresIn), '/', 'localhost',false,  "None")
-        }
-      }
-    ))
+  public signup(user: UserI): Observable<JwtResponseI> {
+    return this.http
+      .post<JwtResponseI>(`${this.url}register`, user)
+      .pipe(tap(this.setCookies));
   }
 
-  public login(user: UserI):Observable<JwtResponseI>{
-    return this.http.post<JwtResponseI>(`${this.url}login`, user).pipe(tap(
-      (res: JwtResponseI)=>{
-        //save token
-        this.saveToken(res.dataUser.accessToken, res.dataUser.expiresIn)
-        this.cookieService.set('USER', res.dataUser.name, parseInt(res.dataUser.expiresIn), '/', 'localhost',false,  "None")
-        this.cookieService.set('ROL', res.dataUser.rol, parseInt(res.dataUser.expiresIn), '/', 'localhost',false,  "None")
-      }
-    ))
+  public login(user: LoginI): Observable<JwtResponseI> {
+    return this.http
+      .post<JwtResponseI>(`${this.url}login`, user)
+      .pipe(tap(this.setCookies));
   }
 
-  public logout():void{
-    this.token = '';
+  public logout(): void {
     this.cookieService.delete("ACCESS_TOKEN");
     this.cookieService.delete("USER");
     this.cookieService.delete("ROL");
   }
 
-  private saveToken(token: string, expiresIn: string):void{
-    console.log(expiresIn)
-      this.cookieService.set('ACCESS_TOKEN', token, parseInt(expiresIn), '/', 'localhost',false,  "None");
-      this.token = token;
+  private saveToken(token: string, expiresIn: string): void {
+    console.log(expiresIn, parseInt(expiresIn));
+    this.cookieService.set(
+      "ACCESS_TOKEN",
+      token,
+      parseInt(expiresIn),
+      "/",
+      "localhost",
+      false,
+      "None"
+    );
   }
 
-  private getToken(){
-    if(!this.token){
-      this.token = this.cookieService.get("ACCESS_TOKEN") ;
-    }
-    return this.token
+  private setCookies = ({ dataUser: { name, rol, auth } }: JwtResponseI) => {
+    this.saveToken(auth.token, auth.expiresIn);
+    this.cookieService.set(
+      "USER",
+      name,
+      parseInt(auth.expiresIn),
+      "/",
+      "localhost",
+      false,
+      "None"
+    );
+    this.cookieService.set(
+      "ROL",
+      rol,
+      parseInt(auth.expiresIn),
+      "/",
+      "localhost",
+      false,
+      "None"
+    );
+  };
+
+  public forgotPassword(email: string): Promise<any> {
+    return this.http
+      .get(`${this.url}forgot-password?email=${email}`)
+      .toPromise();
   }
 
+  public verifyToken(token: string): Observable<boolean> {
+    return this.http.get<boolean>(`${this.url}verify-token?token=${token}`);
+  }
 
-
-
+  public changePassword(changes: {password: string, confirmPassword: string, token: string}): Observable<any> {
+    return this.http.patch(`${this.url}change-password`, changes);
+  }
 }

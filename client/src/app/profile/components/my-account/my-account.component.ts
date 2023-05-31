@@ -32,8 +32,6 @@ export class MyAccountComponent implements OnInit, OnDestroy {
   public classImg: any;
   public urlImg: string | any = null;
   public Profile: File | null = null;
-  public UFO: any;
-  public id: any;
   public datos: any;
   public isEdit: boolean = false;
   public newPhoto: any = null;

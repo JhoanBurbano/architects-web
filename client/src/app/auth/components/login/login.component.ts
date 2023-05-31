@@ -1,193 +1,177 @@
-import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { ActivatedRoute, Router } from '@angular/router';
-import { ToastrService } from 'ngx-toastr';
-import { UserI } from 'src/app/models/user';
-import { HomeService } from 'src/app/services/home.service';
-import { UserService } from 'src/app/services/user.service';
-import Swal from 'sweetalert2'
+import { Component, OnInit } from "@angular/core";
+import { FormGroup, FormBuilder, Validators } from "@angular/forms";
+import { ActivatedRoute, Router } from "@angular/router";
+import { environment } from "@src/environments/environment";
+import { ToastrService } from "ngx-toastr";
+import { Subject, catchError, of, takeUntil } from "rxjs";
+import { LoginI } from "src/app/models/user";
+import { UserService } from "src/app/services/user.service";
+import Swal from "sweetalert2";
 
 @Component({
-  selector: 'app-login',
-  templateUrl: './login.component.html',
-  styleUrls: ['./login.component.scss']
+  selector: "app-login",
+  templateUrl: "./login.component.html",
+  styleUrls: ["./login.component.scss"],
 })
 export class LoginComponent implements OnInit {
-  loginForm: FormGroup;
-  SITE_KEY: string = '6Le1n0cdAAAAADIbgkv_eIFWhJK0M06pxzOFPiGh'
-  token: string;
+  public loginForm: FormGroup;
+  public SITE_KEY = environment.RECAPTCHA_SITE_KEY;
+  public token: string;
+  public isRecoveryPassword = false;
+  private unsubscribe$: Subject<void> = new Subject<void>();
+
   constructor(
     private fb: FormBuilder,
     private router: Router,
     private toastr: ToastrService,
     private _userService: UserService,
-    private homeS: HomeService,
+    private userService: UserService,
     private activeR: ActivatedRoute
   ) {
     this.loginForm = this.fb.group({
-      email: ['', Validators.required,
-        //  Validators.email
-      ],
-      password: [
-        '',
-        Validators.required,
-        // Validators.pattern(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[$@$!%*?&])([A-Za-z\d$@$!%*?&]|[^ ]){8,15}$/),
-      ],
-      captcha: [
-        null,
-        Validators.required
-      ]
-
+      email: ["", [Validators.required, Validators.email]],
+      password: ["", Validators.required],
+      captcha: [null, Validators.required],
     });
-
-    this.token = this.activeR.snapshot.params['token'];
-    if(this.token){
-      this.captureParams()
-    }
-
+    this.token = this.activeR.snapshot.params["token"];
   }
-  siteKey = "6Le1n0cdAAAAADIbgkv_eIFWhJK0M06pxzOFPiGh"
   ngOnInit(): void {
+    this.verifyToken();
   }
 
-  async captureParams() {
-    try {
-      const isValid = await this.homeS.isTokenValid(this.token)
-      if (isValid.value) {
-
-        // const { value: password } = await Swal.fire({
-        //   title: 'Enter your new password',
-        //   input: 'password',
-        //   inputLabel: 'Password',
-        //   inputPlaceholder: 'Enter your password',
-        //   showDenyButton: true,
-        //   denyButtonText: "cancelar",
-        //   confirmButtonText: "cambiar",
-        //   inputAttributes: {
-        //     maxlength: '12',
-        //     autocapitalize: 'off',
-        //     autocorrect: 'off',
-        //     pattern: '^(?=.*\d)(?=.*[!@#$.%^&*])(?=.*[a-z])(?=.*[A-Z]).{8,16}$'
-        //   }
-        // })
-        const {value} = await Swal.fire({
-          title: 'Login Form',
-          html: `<input type="text" id="login" class="swal2-input" placeholder="Password">
-          <input type="password" id="password" class="swal2-input" placeholder="Password">`,
-          confirmButtonText: 'GUarda',
-          focusConfirm: false,
-          preConfirm: (): any => {
-            const login: any = document.querySelector('#login') 
-            const password: any = document.querySelector('#password')
-            if (!login || !password) {
-              Swal.showValidationMessage(`Please enter login and password`)
-            }
-            if(login.value === password.value){
-              return { login: login.value, password: password.value }
-            }else{
-              return;
-            }
+  verifyToken() {
+    if (this.token) {
+      this.userService
+        .verifyToken(this.token)
+        .pipe(
+          takeUntil(this.unsubscribe$),
+          catchError(() => {
+            this.router.navigate(["/auth/login"]);
+            return of();
+          })
+        )
+        .subscribe((isValid: boolean) => {
+          if (isValid) {
+            this.isRecoveryPassword = true;
+            this.loginForm = this.fb.group(
+              {
+                password: [
+                  "",
+                  [
+                    Validators.pattern(
+                      /^(?=.*\d)(?=.*[!@#$.%^&*])(?=.*[a-z])(?=.*[A-Z]).{8,20}$/
+                    ),
+                  ],
+                ],
+                confirmPassword: [""],
+              },
+              { validator: this.checkPasswords }
+            );
+          } else {
+            this.router.navigate(["/auth/login"]);
           }
-        })
-        // const changedPass = await this.homeS.changePass({
-        //   newPassword: password,
-        //   idUser: isValid.id
-        // })
-
-        // Swal.fire(changedPass.message, undefined, 'success')
-
-
-        // const { value: formValues } = await Swal.fire({
-        //   title: 'Multiple inputs',
-        //   html:
-        //     '<input id="swal-input1" class="swal2-input">' +
-        //     '<input id="swal-input2" class="swal2-input">',
-        //   focusConfirm: false,
-        //   preConfirm: () => {
-        //     if(document.getElementById('swal-input1').value !== null){
-        //       return [
-        //         document.getElementById('swal-input1').value,
-        //         document.getElementById('swal-input2').value
-        //       ]
-        //     }
-        //   }
-        // })
-      }
-    } catch (error) {
-
+        });
     }
   }
 
-  async recPass() {
-
+  async onClickForgotPassword() {
     try {
       const { value: email, isDenied } = await Swal.fire({
-        title: 'Input email address',
-        input: 'email',
-        inputLabel: 'Your email address',
-        inputPlaceholder: 'Enter your email address',
+        title: "Input email address",
+        input: "email",
+        inputLabel: "Your email address",
+        inputPlaceholder: "Enter your email address",
         showDenyButton: true,
         denyButtonText: "cancelar",
-        confirmButtonText: "recuperar"
-      })
+        confirmButtonText: "recuperar",
+      });
       if (!isDenied && email) {
-        const isSended = await this.homeS.recoveryPass(email)
+        const isSended = await this.userService.forgotPassword(email);
         if (isSended.isSended) {
-          Swal.fire("Email enviado", isSended.message, 'success')
+          Swal.fire("Email enviado", isSended.message, "success");
         } else {
-          Swal.fire("Algo pasó", isSended.message, 'success')
+          Swal.fire("Algo pasó", isSended.message, "success");
         }
       }
-    } catch (error) {
+    } catch (error) {}
+  }
 
-    }
+  checkPasswords(formGroup: FormGroup) {
+    const password = formGroup.get("password")?.value;
+    const confirmPassword = formGroup.get("confirmPassword")?.value;
 
-
-
-
+    return password === confirmPassword ? null : { notSame: true };
   }
 
   loginUser() {
-    const USUARIO: UserI = {
-      name: "",
-      lastname: "",
-      rol: "",
-      number: 0,
-      email: this.loginForm.get('email')?.value,
-      password: this.loginForm.get('password')?.value,
-    }
-
-    console.log(USUARIO);
-    this._userService.login(USUARIO).subscribe(data => {
-      console.log(data)
-      this.toastr.success(`${data.dataUser.name.toUpperCase()} Welcome to ARCHITETCS!`, "User Logged")
-      location.reload()
-    }, error => {
-      // this.toastr.error('Something is wrong', 'Error Login')
-      Swal.fire({
-        titleText: 'ERROR LOGIN',
-        text: 'Something is wrong',
-        icon: 'error',
-        confirmButtonText: 'Try again',
-        confirmButtonColor: '#d55',
-        confirmButtonAriaLabel: 'ssss',
-        toast: false,
-        // timer: 2000,
-        // timerProgressBar: true,
-        showCloseButton: false,
-        customClass: {
-          confirmButton: `
+    const user: LoginI = {
+      email: this.loginForm.get("email")?.value,
+      password: this.loginForm.get("password")?.value,
+    };
+    this._userService
+      .login(user)
+      .pipe(
+        catchError((error) => {
+          Swal.fire({
+            titleText: "ERROR LOGIN",
+            text: "Something is wrong",
+            icon: "error",
+            confirmButtonText: "Try again",
+            confirmButtonColor: "#d55",
+            confirmButtonAriaLabel: "ssss",
+            toast: false,
+            showCloseButton: false,
+            customClass: {
+              confirmButton: `
           outline: none;
           nav-index:none;
           border:none
-          `
-        }
-      })
-      console.log(error)
-      this.router.navigate(['/auth/login'])
-    })
+          `,
+            },
+          });
+          console.log(error);
+          this.router.navigate(["/auth/login"]);
+          return of();
+        })
+      )
+
+      .subscribe((data) => {
+        console.log(data);
+        this.toastr.success(
+          `${data.dataUser.name.toUpperCase()} Welcome to ARCHITETCS!`,
+          "User Logged"
+        );
+        this.router.navigate(['profile'])
+      });
   }
 
+  changePassword() {
+    const payload = {
+      token: this.token,
+      password: this.loginForm.get("password")?.value as string,
+      confirmPassword: this.loginForm.get("confirmPassword")?.value as string,
+    };
+
+    this.userService
+      .changePassword(payload)
+      .pipe(
+        takeUntil(this.unsubscribe$),
+        catchError(() => {
+          this.toastr.error(
+            "Hubo un error, por favor intenta de nuevo",
+            "UPDATE FAILED"
+          );
+          this.router.navigate(["/auth/login"]);
+          return of();
+        })
+      )
+      .subscribe(() => {
+        this.toastr.success(
+          "Se ha actualizado tu contraseña",
+          "UPDATE SUCCESS"
+        );
+        this.isRecoveryPassword = false;
+        this.loginForm.reset();
+      });
+  }
 }
-
-

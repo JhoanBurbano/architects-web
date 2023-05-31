@@ -1,11 +1,14 @@
 import {
   DeleteObjectCommand,
+  GetObjectCommand,
   PutObjectCommand,
   S3Client,
 } from '@aws-sdk/client-s3';
 import { Inject, Injectable } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { getAWSPATH } from './config';
+import { Readable } from 'stream';
+import { TemplateEmail } from 'src/enums/template-email.enum';
 
 @Injectable()
 export class S3Service {
@@ -15,6 +18,7 @@ export class S3Service {
   public PUBLIC_ACCESS_KEY = this.configService.get<string>(
     'AWS.PUBLIC_ACCESS_KEY',
   );
+  public TEMPLATE_PATH = this.configService.get<string>('AWS.TEMPLATE_PATH');
   public QR_PATH = this.configService.get<string>('AWS.QR_PATH');
 
   constructor(
@@ -22,7 +26,7 @@ export class S3Service {
   ) {}
 
   client = new S3Client({
-    region: this.BUCKET,
+    region: this.BUCKET_REGION,
     credentials: {
       accessKeyId: this.PUBLIC_ACCESS_KEY,
       secretAccessKey: this.SECRET_KEY,
@@ -44,11 +48,26 @@ export class S3Service {
 
   async deleteFile(id: string) {
     const path = `${this.QR_PATH}${id}.png`;
-    console.log('path', path);
     const command = new DeleteObjectCommand({
       Bucket: this.BUCKET,
       Key: path,
     });
     await this.client.send(command);
+  }
+
+  async getTemplate(template: TemplateEmail) {
+    const path = `${this.TEMPLATE_PATH}${template}.mjml`;
+    const command = new GetObjectCommand({
+      Bucket: this.BUCKET,
+      Key: path,
+    });
+    const response = await this.client.send(command);
+    const bodyStream = response.Body as Readable;
+    let mjmlTemplate = '';
+    for await (const chunk of bodyStream) {
+      mjmlTemplate += chunk;
+    }
+
+    return mjmlTemplate;
   }
 }

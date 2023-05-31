@@ -15,12 +15,14 @@ export class UsuarioLogin {
 
 export interface JwtResponseI {
 	dataUser: {
-		id: number;
+		id: string;
 		name: string;
 		email: string;
 		rol:string,
-		accessToken: string;
-		expiresIn: string;
+		auth: {
+			token: string;
+			expiresIn: string;
+		}
 	};
 }
 
@@ -33,6 +35,11 @@ export interface UserI {
 	number: number;
 	email: string;
 	password?: string;
+}
+
+export interface LoginI {
+	email: string;
+	password: string;
 }
 
 export interface authentificated{

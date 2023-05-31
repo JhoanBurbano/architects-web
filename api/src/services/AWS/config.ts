@@ -5,6 +5,21 @@ const environment = () => ({
     PUBLIC_ACCESS_KEY: process.env.NODE_AWS_PUBLIC_ACCESS_KEY,
     SECRET_KEY: process.env.NODE_AWS_SECRET_KEY,
     QR_PATH: 'projects/ARCHITECTS/assets/',
+    TEMPLATE_PATH: 'projects/ARCHITECTS/mail-templates/',
+  },
+  CONFIG: {
+    SECRET_HASH_KEY: process.env.SECRET_HASH_KEY,
+    EXPIRES_IN: '1h',
+  },
+  EMAIL: {
+    USERNAME: process.env.EMAIL_USERNAME,
+    PASSWORD: process.env.EMAIL_PASSWORD,
+    WEB_URL: `${process.env.WEB_URL}`,
+  },
+  MONGO: {
+    USER: process.env.DB_USER,
+    PASSWORD: process.env.DB_PASS,
+    DATABASE: process.env.DB_NAME,
   },
 });
 
