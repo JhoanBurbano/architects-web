@@ -19,7 +19,7 @@
   ],
   "rewrites": [
     {
-      "src": "/(.*)",
+      "source": "/(.*)",
       "destination": "src/main.ts"
     }
   ]
