@@ -1,4 +1,4 @@
-export interface inmuebleI{
+export interface IProperty{
     _id?:number,
     type: string,
     city: string,
@@ -17,6 +17,23 @@ export interface inmuebleI{
     comments: string[],
     description:string,
     img:any,
+    price:number,
+    tags:string[],
+    active: boolean
+}
+
+export interface ICreateProperty{
+    type: string,
+    city: string,
+    sector: string,
+    features: {
+        levels: number,
+        rooms: number,
+        baths: number,
+        garage: boolean,
+    },
+    description:string,
+    images:string[],
     price:number,
     tags:string[],
     active: boolean

@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { CookieService } from 'ngx-cookie-service';
 import { ToastrService } from 'ngx-toastr';
-import { inmuebleI } from 'src/app/models/inmuebles';
+import { IProperty } from '@src/app/models/properties';
 import { HomeService } from 'src/app/services/home.service';
 import { ProfileService } from 'src/app/services/profile.service';
 import Swal from 'sweetalert2';
@@ -23,7 +23,7 @@ export class HomeComponent implements OnInit {
 		private cookie: CookieService,
     private router: Router
 	) {}
-	inmuebles: inmuebleI[] = [];
+	inmuebles: IProperty[] = [];
 
 	ngOnInit(): void {
 		this.obtenerInmuebles();

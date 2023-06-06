@@ -1,5 +1,6 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, OnDestroy, OnInit } from "@angular/core";
 import { FormGroup, FormBuilder, Validators } from "@angular/forms";
+import { MatDialog } from "@angular/material/dialog";
 import { ActivatedRoute, Router } from "@angular/router";
 import { environment } from "@src/environments/environment";
 import { ToastrService } from "ngx-toastr";
@@ -7,13 +8,16 @@ import { Subject, catchError, of, takeUntil } from "rxjs";
 import { LoginI } from "src/app/models/user";
 import { UserService } from "src/app/services/user.service";
 import Swal from "sweetalert2";
+import { SendEmailComponent } from "../send-email/send-email.component";
+import { UiService } from "@src/app/services/ui.service";
+import { TypeNotify } from "@src/app/enums/global.enum";
 
 @Component({
   selector: "app-login",
   templateUrl: "./login.component.html",
   styleUrls: ["./login.component.scss"],
 })
-export class LoginComponent implements OnInit {
+export class LoginComponent implements OnInit, OnDestroy {
   public loginForm: FormGroup;
   public SITE_KEY = environment.RECAPTCHA_SITE_KEY;
   public token: string;
@@ -26,7 +30,9 @@ export class LoginComponent implements OnInit {
     private toastr: ToastrService,
     private _userService: UserService,
     private userService: UserService,
-    private activeR: ActivatedRoute
+    private activeR: ActivatedRoute,
+    private dialog: MatDialog,
+    private ui$: UiService,
   ) {
     this.loginForm = this.fb.group({
       email: ["", [Validators.required, Validators.email]],
@@ -74,26 +80,20 @@ export class LoginComponent implements OnInit {
     }
   }
 
-  async onClickForgotPassword() {
-    try {
-      const { value: email, isDenied } = await Swal.fire({
-        title: "Input email address",
-        input: "email",
-        inputLabel: "Your email address",
-        inputPlaceholder: "Enter your email address",
-        showDenyButton: true,
-        denyButtonText: "cancelar",
-        confirmButtonText: "recuperar",
-      });
-      if (!isDenied && email) {
-        const isSended = await this.userService.forgotPassword(email);
-        if (isSended.isSended) {
-          Swal.fire("Email enviado", isSended.message, "success");
-        } else {
-          Swal.fire("Algo pasó", isSended.message, "success");
-        }
+  onClickForgotPassword() {
+    const dialogRef = this.dialog.open(SendEmailComponent, {
+      minWidth: '300px',
+      maxWidth: '340px',
+      width: '100%',
+    });
+    dialogRef.afterClosed()
+    .pipe(takeUntil(this.unsubscribe$))
+    .subscribe((result) => {
+      if(result.success !== undefined) {
+        if(result.success)return this.ui$.showNotify(result.message, TypeNotify.SUCCESS)
+        return this.ui$.showNotify(result.message, TypeNotify.ERROR)
       }
-    } catch (error) {}
+    });
   }
 
   checkPasswords(formGroup: FormGroup) {
@@ -141,7 +141,7 @@ export class LoginComponent implements OnInit {
           `${data.dataUser.name.toUpperCase()} Welcome to ARCHITETCS!`,
           "User Logged"
         );
-        this.router.navigate(['profile'])
+        this.router.navigate(["profile"]);
       });
   }
 
@@ -173,5 +173,10 @@ export class LoginComponent implements OnInit {
         this.isRecoveryPassword = false;
         this.loginForm.reset();
       });
+  }
+
+  ngOnDestroy(): void {
+    this.unsubscribe$.next();
+    this.unsubscribe$.complete();
   }
 }

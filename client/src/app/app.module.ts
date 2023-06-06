@@ -12,7 +12,6 @@ import { UserTokenInterceptor } from './interceptors/user-token.interceptor';
 import { CookieService } from 'ngx-cookie-service';
 import { SecurityService } from './services/security.service';
 import { UserService } from './services/user.service';
-import { AboutComponent } from './components/about/about.component';
 import { NavbarComponent } from './navbar/navbar/navbar.component';
 import { InmuebleComponent } from './components/inmueble/inmueble.component';
 import { RouterModule } from '@angular/router';
@@ -25,7 +24,6 @@ import { SharedModule } from './shared/shared.module';
     AppComponent, 
     HomeComponent, 
     NotFoundComponent, 
-	AboutComponent,
 	NavbarComponent,
  InmuebleComponent
    ],

@@ -1,11 +1,11 @@
 <div class="architects-square">
   <div
     class="architects-square-img"
-    style="background: url('{{inmueble.img[0]}}');background-position:center; background-size: cover"
+    style="background: url('{{inmueble.images[0]}}');background-position:center; background-size: cover"
   >
   <div class="architects-square-img-social" >
     <span>
-      <b>{{inmueble.img.length}}</b>
+      <b>{{inmueble.images.length}}</b>
       <i class="fas fa-image"></i>
     </span>
     <span class="architects-square-img-social-like" *ngIf="showLikes">
@@ -21,10 +21,10 @@
       <b>{{ inmueble.city }}</b>
     </p>
     <div class="architects-square-description-icons">
-      <p><i class="fas fa-layer-group"></i>{{ inmueble.attr.levels }}</p>
-      <p><i class="fas fa-door-closed"></i>{{ inmueble.attr.rooms }}</p>
-      <p><i class="fas fa-bath"></i>{{ inmueble.attr.baths }}</p>
-      <p><i class="fas fa-car"></i>{{ inmueble.attr.garage }}</p>
+      <p><i class="fas fa-layer-group"></i>{{ inmueble.features.levels }}</p>
+      <p><i class="fas fa-door-closed"></i>{{ inmueble.features.rooms }}</p>
+      <p><i class="fas fa-bath"></i>{{ inmueble.features.baths }}</p>
+      <p *ngIf="inmueble.features.garage"><i class="fas fa-car"></i></p>
     </div>
     <p class="architects-square-description-price">
       {{ inmueble.price | currency : "COP" : "symbol-narrow" : "4.0-0" }}

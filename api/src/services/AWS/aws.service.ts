@@ -33,11 +33,11 @@ export class S3Service {
     },
   });
 
-  async uploadFile(file: any, folder = 'profiles/') {
+  async uploadFile(file: any, folder = 'profiles') {
     const uploadParams = {
       Bucket: this.BUCKET,
-      Key: `${this.QR_PATH}${folder}${file.name}.png`,
-      Body: file.data,
+      Key: `${this.QR_PATH}${folder}/${file.name}.png`,
+      Body: file.buffer,
       ContentType: 'image/png',
       ACL: 'public-read',
     };

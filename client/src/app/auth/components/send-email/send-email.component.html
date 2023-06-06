@@ -1,0 +1,21 @@
+<div class="architects-send-email">
+    <h2 class="architects-send-email-title">Recuperar Contraseña</h2>
+    <span class="architects-send-email-close" mat-dialog-close>
+        <button mat-icon-button tabindex="0">
+            <mat-icon>close</mat-icon>
+        </button> 
+    </span>
+    <div class="architects-send-email-form">
+        <label class="architects-send-email-form-label">
+            <p class="architects-send-email-form-label-field">Ingresa tu e-mail</p>
+            <input class="architects-send-email-form-label-input" [formControl]="control" name="email" type="email"
+                placeholder="ingrese su e-mail" (input)="setUpperCase()" />
+        </label>
+        <p class="architects-send-email-form-error" *ngIf="control?.hasError('required') && control?.touched">
+            email is <strong>Required</strong>
+        </p>
+        <button class="architects-send-email-form-submit" type="submit" [disabled]="!control.valid" (click)="sendEmail()">
+            Send
+        </button>
+    </div>
+</div>

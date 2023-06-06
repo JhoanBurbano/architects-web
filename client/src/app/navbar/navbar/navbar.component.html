@@ -1,9 +1,24 @@
-<nav>
-    <div class="logo">
-      <a routerLink="/" ><p><b>ARCH</b>ITECTS</p></a>
+<nav class="architects-navbar">
+  <div class="architects-navbar__logo">
+    <a class="architects-navbar__logo-type" routerLink="/">
+      <img src="https://burbanostudio-assets.s3.us-east-2.amazonaws.com/projects/ARCHITECTS/assets/invite-isotype-architect.svg" alt="">
+    </a>
+  </div>
+  <div class="architects-navbar__options">
+      <a
+        class="architects-navbar__options-item"
+        *ngFor="let link of list"
+        [routerLink]="link.url"
+        routerLinkActive="Active"
+        ><i [class]="link.icon"></i><span>{{ link.name }}</span></a
+      >
+      <a
+        class="architects-navbar__options-item"
+        *ngIf="isLog"
+        (click)="logout()"
+      >
+        <i class="fas fa-sign-out-alt"></i>
+        <span>salir</span>
+      </a>
     </div>
-    <ul>
-      <li *ngFor="let link of list"><a [routerLink]="link.url" (click)="link.function || ''" routerLinkActive="Active" ><i [class]="link.icon" ></i>{{link.name}}</a></li>
-      <li *ngIf="isLog"><button class="logout"(click)="logout()"><i class="fas fa-sign-out-alt"></i></button></li>
-    </ul>
 </nav>

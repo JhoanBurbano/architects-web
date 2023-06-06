@@ -11,6 +11,8 @@ import { RouterModule } from '@angular/router';
 import { ReactiveFormsModule } from '@angular/forms';
 import { SharedModule } from '../shared/shared.module';
 import { ProfileComponent } from './components/profile/profile.component';
+import { MatButtonModule } from '@angular/material/button';
+import { MatIconModule } from '@angular/material/icon';
 
 @NgModule({
   declarations: [
@@ -23,7 +25,9 @@ import { ProfileComponent } from './components/profile/profile.component';
     ProfileRoutingModule,
     RouterModule,
     ReactiveFormsModule,
-    SharedModule
+    SharedModule,
+    MatButtonModule,
+		MatIconModule,
   ],
   providers: [CookieService, UserService, ProfileService],
 })

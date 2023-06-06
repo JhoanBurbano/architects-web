@@ -2,7 +2,7 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { Subject, takeUntil } from 'rxjs';
-import { inmuebleI } from 'src/app/models/inmuebles';
+import { IProperty } from '@src/app/models/properties';
 import { AsesorService } from 'src/app/services/asesor.service';
 
 @Component({
@@ -12,7 +12,7 @@ import { AsesorService } from 'src/app/services/asesor.service';
 })
 export class InmueblesComponent implements OnInit, OnDestroy {
 
-  public inmuebles: inmuebleI[]=[]
+  public inmuebles: IProperty[]=[]
   private unsubscribe$: Subject<void> = new Subject<void>();
 
   constructor(private asesorS: AsesorService, private toast: ToastrService, private router: Router) { }
@@ -22,7 +22,7 @@ export class InmueblesComponent implements OnInit, OnDestroy {
   }
 
   misPublicaciones(){
-    this.asesorS.getMyInm()
+    this.asesorS.getPropertiesById('')
     .pipe(takeUntil(this.unsubscribe$))
     .subscribe(data =>{
       this.inmuebles=data
@@ -32,7 +32,7 @@ export class InmueblesComponent implements OnInit, OnDestroy {
   }
 
   deleteInmueble(id: string){
-    this.asesorS.deleteInm(id)
+    this.asesorS.deleteProperty(id)
     .pipe(takeUntil(this.unsubscribe$))
     .subscribe(data=>{
       this.toast.success(data.message, 'Done')

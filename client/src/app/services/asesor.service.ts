@@ -1,29 +1,33 @@
-import { HttpClient } from '@angular/common/http';
-import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
-import { inmuebleI } from '../models/inmuebles';
-import { environment } from 'src/environments/environment';
+import { HttpClient } from "@angular/common/http";
+import { Injectable } from "@angular/core";
+import { Observable } from "rxjs";
+import { ICreateProperty, IProperty } from "../models/properties";
+import { environment } from "src/environments/environment";
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: "root",
 })
 export class AsesorService {
-  public url=`${environment.API_URL}inmuebles/`
-  constructor(private http:HttpClient) { }
+  public url = `${environment.API_URL}property/`;
+  constructor(private http: HttpClient) {}
 
-  getMyInm():Observable<any>{
-    return this.http.get<any>(this.url)
+  getPropertiesById(_id: string): Observable<any> {
+    return this.http.get<any>(`${this.url}${_id}`);
   }
 
-  postImg(formData:FormData):Observable<any>{
-    return  this.http.post(`${this.url}uploads`, formData)
+  uploadFiles(formData: FormData): Observable<any> {
+    return this.http.post(`${this.url}upload-files`, formData);
   }
 
-  createInm(Inmueble:inmuebleI):Observable<any>{
-    return this.http.post<any>(`${this.url}create`, Inmueble)
+  createProperty(Property: ICreateProperty): Observable<any> {
+    return this.http.post<any>(`${this.url}create-property`, Property);
   }
 
-  deleteInm(idInm:string):Observable<any>{
-    return this.http.delete(`${this.url}delete/${idInm}`)
+  deleteProperty(propertyId: string): Observable<any> {
+    return this.http.delete(`${this.url}delete-property/${propertyId}`);
+  }
+
+  loadCities() {
+    return this.http.get<string[]>(`${this.url}cities`)
   }
 }

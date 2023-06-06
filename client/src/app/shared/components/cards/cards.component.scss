@@ -18,6 +18,10 @@
       flex-direction: column;
       justify-content: space-evenly;
       width: 70%;
+      height: 85px;
+      & p {
+        margin-bottom: 0;
+      }
       & .icons{
         display: flex;
         justify-content: space-evenly;

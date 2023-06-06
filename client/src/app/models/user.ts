@@ -27,7 +27,7 @@ export interface JwtResponseI {
 }
 
 export interface UserI {
-	img?:string | null,
+	profile?:string | null,
 	description?:string | null,
 	name: string;
 	lastname: string;
@@ -45,3 +45,8 @@ export interface LoginI {
 export interface authentificated{
 	agree: boolean
 }
+
+export interface ImageDimensions {
+	w: number;
+	h: number;
+  }

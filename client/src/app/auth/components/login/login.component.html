@@ -1,37 +1,55 @@
-<div class="Container">
-    <div class="Chart">
-      <ng-container *ngIf="!isRecoveryPassword;else change">
-        <h2>Log In</h2>
-        <form [formGroup]="loginForm" (ngSubmit)="loginUser()" >
-          <label>
-            <input formControlName="email" name="email" type="email" placeholder="ingrese su e-mail" />
+<div class="architects-login">
+  <div class="architects-login__content">
+    <ng-container *ngIf="!isRecoveryPassword;else change">
+      <h2 class="architects-login__content-title">Login</h2>
+      <form class="architects-login__content-form" [formGroup]="loginForm" (ngSubmit)="loginUser()">
+        <label class="architects-login__content-form-label">
+          <p class="architects-login__content-form-label-field">email</p>
+          <input class="architects-login__content-form-label-input" formControlName="email" name="email" type="email"
+            placeholder="ingrese su e-mail" />
         </label>
-        <div style="font-size: .8rem; color: #300; overflow: visible;" class="txt-dgr"  *ngIf="loginForm.get('email')?.hasError('required') && loginForm.get('email')?.touched"><p>email is <strong>Required</strong> </p></div>
-        <label>
-            <input formControlName='password' name="password" type="password" placeholder="ingrese su contraseña" />
-          </label>
-          <div style="font-size: .8rem; color: #300; overflow: visible;" class="txt-dgr"  *ngIf="loginForm.get('password')?.hasError('required') && loginForm.get('password')?.touched"><p>password is <strong>Required</strong> </p></div>
-          <re-captcha formControlName="captcha" required [siteKey]="SITE_KEY" style="overflow: visible;"></re-captcha>
-          <button type="submit" [disabled]="!loginForm.valid">Log In</button>
-          <a (click)="onClickForgotPassword()">Recupera tu contraseña</a>
-        </form>
-      </ng-container> 
-    </div>
+        <p class="architects-login__content-form-error"
+          *ngIf="loginForm.get('email')?.hasError('required') && loginForm.get('email')?.touched">
+          email is <strong>Required</strong> 
+        </p>
+        <label class="architects-login__content-form-label">
+          <p class="architects-login__content-form-label-field">password</p>
+          <input class="architects-login__content-form-label-input" formControlName='password' name="password"
+            type="password" placeholder="ingrese su contraseña" />
+        </label>
+        <p class="architects-login__content-form-error"
+          *ngIf="loginForm.get('password')?.hasError('required') && loginForm.get('password')?.touched">
+        password is <strong>Required</strong> 
+        </p>
+        <re-captcha formControlName="captcha" required [siteKey]="SITE_KEY" style="overflow: visible;"></re-captcha>
+        <button class="architects-login__content-form-submit" type="submit" [disabled]="!loginForm.valid">Log
+          In</button>
+          <a class="architects-login__content-form-link" (click)="onClickForgotPassword()">Recupera tu contraseña</a>
+      </form>
+    </ng-container>
   </div>
-  
-  <ng-template #change>
-    <h2>Change Password</h2>
-    <form [formGroup]="loginForm" (ngSubmit)="changePassword()" >
-      <label>
-        <input formControlName="password" name="email" type="password" placeholder="ingrese su contraseña" />
-    </label>
-    <div style="font-size: .8rem; color: #300; overflow: visible;" class="txt-dgr"  *ngIf="loginForm.get('email')?.hasError('required') && loginForm.get('email')?.touched"><p>email is <strong>Required</strong> </p></div>
-    <label>
-        <input formControlName='confirmPassword' name="password" type="password" placeholder="ingrese su contraseña nuevamente" />
-      </label>
-      <div style="font-size: .8rem; color: #300; overflow: visible;" class="txt-dgr"  *ngIf="loginForm.get('password')?.hasError('required') && loginForm.get('password')?.touched"><p>password is <strong>Required</strong> </p></div>
-      <button type="submit" [disabled]="!loginForm.valid">Cambiar contraseña</button>
-    </form>
-  </ng-template>
+</div>
 
-  
+<ng-template #change>
+  <h2 class="architects-login__content-title">Change Password</h2>
+  <form class="architects-login__content-form" [formGroup]="loginForm" (ngSubmit)="changePassword()">
+    <label class="architects-login__content-form-label">
+      <p class="architects-login__content-form-label-field">New Password</p>
+      <input class="architects-login__content-form-label-input" formControlName="password" name="password" type="password" placeholder="ingrese su contraseña" />
+    </label>
+    <p lass="architects-login__content-form-error"
+      *ngIf="loginForm.get('password')?.hasError('required') && loginForm.get('password')?.touched">
+      password is <strong>Required</strong>
+    </p>
+    <label class="architects-login__content-form-label">
+      <p class="architects-login__content-form-label-field">Confirm password</p>
+      <input class="architects-login__content-form-label-input" formControlName='confirmPassword' name="password" type="password"
+        placeholder="ingrese su contraseña nuevamente" />
+    </label>
+    <p lass="architects-login__content-form-error"
+      *ngIf="loginForm.get('confirmPassword')?.hasError('required') && loginForm.get('confirmPassword')?.touched">
+      password is <strong>Required</strong>
+    </p>
+    <button class="architects-login__content-form-submit" type="submit" [disabled]="!loginForm.valid">Cambiar contraseña</button>
+  </form>
+</ng-template>

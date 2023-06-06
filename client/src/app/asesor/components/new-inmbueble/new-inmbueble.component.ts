@@ -1,10 +1,9 @@
 import { Component, ElementRef, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { DomSanitizer } from '@angular/platform-browser';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { Subject, catchError, of, switchMap, takeUntil } from 'rxjs';
-import { inmuebleI } from 'src/app/models/inmuebles';
+import { ICreateProperty, IProperty } from '@src/app/models/properties';
 import { AsesorService } from 'src/app/services/asesor.service';
 
 @Component({
@@ -22,9 +21,9 @@ export class NewInmbuebleComponent implements OnInit, OnDestroy {
   @ViewChild('uploadImage') private uploadImage!: ElementRef;
   public imageSelected: any;
   public isDisabled: boolean = true;
+  public cities: string[] = []
 
   constructor(
-    private sanitizer: DomSanitizer,
     private toast: ToastrService,
     private fb: FormBuilder,
     private asesorS: AsesorService,
@@ -39,15 +38,20 @@ export class NewInmbuebleComponent implements OnInit, OnDestroy {
         levels: ['', Validators.required],
         rooms: ['', Validators.required],
         baths: ['', Validators.required],
-        garage: ['', Validators.required],
+        garage: [false],
       }),
       price: [0, Validators.required],
     });
   }
 
   ngOnInit(): void {
-    this.newInmuebleForm.valueChanges
-    .pipe(takeUntil(this.unsubscribe$))
+    this.asesorS.loadCities()
+    .pipe(takeUntil(this.unsubscribe$),
+    switchMap((cities: string[])=>{
+      this.cities = cities;
+      return this.newInmuebleForm.valueChanges
+    })
+    )
     .subscribe(() => {
       this.isDisabled = !!!(
         this.newInmuebleForm.valid &&
@@ -110,8 +114,6 @@ export class NewInmbuebleComponent implements OnInit, OnDestroy {
   extraerBase64 = async ($event: any) =>
     new Promise((resolve) => {
       try {
-        const unsafeImg = window.URL.createObjectURL($event);
-        const image = this.sanitizer.bypassSecurityTrustUrl(unsafeImg);
         const reader = new FileReader();
         reader.readAsDataURL($event);
         reader.onload = () => {
@@ -131,15 +133,15 @@ export class NewInmbuebleComponent implements OnInit, OnDestroy {
 
   sendForm() {
     let imgFormData = new FormData();
-    this.archivos.forEach((e) => {
-      imgFormData.append('files', e);
+    this.archivos.forEach((file) => {
+      imgFormData.append('files', file);
     });
 
     this.asesorS
-      .postImg(imgFormData)
+      .uploadFiles(imgFormData)
       .pipe(
         takeUntil(this.unsubscribe$),
-        switchMap((data) => this.createInmueble(data.paths)),
+        switchMap((data) => this.createInmueble(data)),
         catchError((error: any) => {
           this.toast.error(error.message, error.name);
           return of(error.error);
@@ -147,35 +149,29 @@ export class NewInmbuebleComponent implements OnInit, OnDestroy {
       )
       .subscribe((data) => {
         this.toast.success(data.message, 'DONE');
-        this.router.navigate(['/asesor/', 'inmuebles']);
+        this.router.navigate(['/profile/', 'board']);
       });
   }
 
   createInmueble(imgs: string[]) {
     if (this.newInmuebleForm.valid) {
-      const Inmueble: inmuebleI = {
+      const Inmueble: ICreateProperty = {
         type: this.newInmuebleForm.get('type')?.value,
         city: this.newInmuebleForm.get('city')?.value,
         sector: this.newInmuebleForm.get('sector')?.value,
         description: this.newInmuebleForm.get('description')?.value,
-        attr: {
+        features: {
           levels: this.newInmuebleForm.controls['attr'].get('levels')?.value,
           rooms: this.newInmuebleForm.controls['attr'].get('rooms')?.value,
           baths: this.newInmuebleForm.controls['attr'].get('baths')?.value,
           garage: this.newInmuebleForm.controls['attr'].get('garage')?.value,
         },
         price: this.newInmuebleForm.get('price')?.value,
-        favs: 0,
-        assesor: {
-          email: '',
-          name: '',
-        },
-        comments: [],
-        img: imgs,
+        images: imgs,
         tags: this.tags,
         active: true,
       };
-      return this.asesorS.createInm(Inmueble);
+      return this.asesorS.createProperty(Inmueble);
     }
     return of(new Error('El formulario no es valido'));
   }

@@ -10,6 +10,9 @@ html {
 	font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana,
 		sans-serif;
 	overflow-x: hidden;
+	@media screen and (max-width: 500px) {
+		font-size: 14px;
+	}
 }
 
 .Container {
@@ -24,11 +27,39 @@ html {
 	padding: 0;
 	margin: 0;
 	box-sizing: border-box;
+	& input:-webkit-autofill,
+	input:-webkit-autofill:focus,
+	textarea:-webkit-autofill,
+	textarea:-webkit-autofill:focus,
+	select:-webkit-autofill,
+	select:-webkit-autofill:focus {
+		box-shadow: 0 0 0 1000px #88f inset !important;
+		-webkit-box-shadow: 0 0 0 1000px #88f inset !important;
+		/* Cambia "white" al color de fondo deseado */
+		/* Si quieres quitar el fondo por completo, utiliza "transparent" */
+		-webkit-text-fill-color: #2200ff !important;
+		/* Cambia "#333333" al color de texto deseado */
+	}
+	& p {
+		margin: 0;
+	}
+}
+
+a {
+	text-decoration: none;
+	color: $black;
+}
+
+ul {
+	list-style: none;
 }
 
 /* Chrome, Edge, and Safari */
 *::-webkit-scrollbar {
-	width: .35rem;
+	width: 5px;
+	@media screen and (max-width: 1024px) {
+		width: 0;
+	}
 }
 
 *::-webkit-scrollbar-track {
@@ -36,7 +67,28 @@ html {
 }
 
 *::-webkit-scrollbar-thumb {
-	background-color: $blue;
-	border-radius: 1px;
+	background-color: $blue_river;
+	border-radius: 3px;
+	border-right: 1px solid $blue;
 }
 
+
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif}
+
+
+.architects-snackbar {
+	--mat-snack-bar-button-color: #fff;
+	&-default {
+		--mdc-snackbar-container-color: #302b63;
+	}
+	&-success {
+		--mdc-snackbar-container-color: #46a844;
+	}
+	&-warning {
+		--mdc-snackbar-container-color: #d5ae20;
+	}
+	&-error {
+		--mdc-snackbar-container-color: #ff4040;
+	}
+}

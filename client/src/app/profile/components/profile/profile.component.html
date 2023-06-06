@@ -1,5 +1,5 @@
 <div class="architects-profile">
-  <aside class="architects-profile-panel">
+  <aside class="architects-profile-panel" [ngClass]="{'show': showPanel}">
     <figure class="architects-profile-panel-container" [ngClass]="{'load': !isLoadImage}">
       <img
       *ngIf="datos.profile"
@@ -31,12 +31,25 @@
     </ng-container>
   </aside>
   <main class="architects-profile-content" >
-    <section class="architects-profile-content-card" *ngIf="datos.rol">
-      <app-band [title]="datos.rol === 'CLIENT' ? 'Tus Favoritos' : 'Tus Publicacioones'" [borderRadius]="true"></app-band>
-      <app-grid-squares
-      [items]="cards"
-      [showLikes]="datos.rol === 'CLIENT'"
-      ></app-grid-squares>
+    <section class="architects-profile-content-card" [ngSwitch]="datos.rol">
+      <ng-container *ngSwitchCase="'CLIENT'">
+        <app-band title="Tus Favoritos" [borderRadius]="true"></app-band>
+        <app-grid-squares
+        [items]="cards"
+        [showLikes]="datos.rol === 'CLIENT'"
+        ></app-grid-squares>
+      </ng-container>
+      <ng-container *ngSwitchCase="'ASESOR'">
+        <app-band title="Tus Favoritos" [borderRadius]="true" [showButton]="true" (buttonClick)="newInmueble()"></app-band>
+        <app-grid-squares
+        [items]="cards"
+        [showLikes]="false"
+        [showControls]="true"
+        (delete)="deleteInmueble($event)"
+        (edit)="editInmueble($event)"
+        ></app-grid-squares>
+      </ng-container>
     </section>
   </main>
+  <button class="architects-profile-toggle" mat-mini-fab (click)="onClickToggle()"><mat-icon>menu</mat-icon></button>
 </div>

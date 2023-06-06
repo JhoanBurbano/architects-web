@@ -71,10 +71,9 @@ export class UserService {
     );
   };
 
-  public forgotPassword(email: string): Promise<any> {
+  public forgotPassword(email: string): Observable<any> {
     return this.http
       .get(`${this.url}forgot-password?email=${email}`)
-      .toPromise();
   }
 
   public verifyToken(token: string): Observable<boolean> {

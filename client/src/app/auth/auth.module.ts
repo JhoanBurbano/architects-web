@@ -9,16 +9,25 @@ import { LoginComponent } from './components/login/login.component';
 import { AuthRoutingModule } from '../auth/auth-routhing.module';
 import { UserService } from '../services/user.service';
 import { RouterModule } from '@angular/router';
+import { MatIconModule } from '@angular/material/icon';
+import { MatDialogModule } from '@angular/material/dialog';
+import { MatButtonModule } from '@angular/material/button';
+import { SendEmailComponent } from './components/send-email/send-email.component';
+import { SharedModule } from '../shared/shared.module';
 
 @NgModule({
-	declarations: [ SignupComponent, LoginComponent ],
+	declarations: [ SignupComponent, LoginComponent, SendEmailComponent ],
 	imports: [
 		CommonModule,
 		ReactiveFormsModule,
 		AuthRoutingModule,
 		RecaptchaModule,
 		RecaptchaFormsModule,
-		RouterModule
+		RouterModule,
+		MatIconModule,
+		MatDialogModule,
+		MatButtonModule,
+		SharedModule,
 	],
 	providers: [ UserService ]
 })

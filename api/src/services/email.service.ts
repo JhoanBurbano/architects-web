@@ -18,7 +18,9 @@ export class EmailService {
     private jwtTokenService: JwtTokenService,
   ) {}
 
-  async sendEmail(email: EmailDTO): Promise<{ message: string }> {
+  async sendEmail(
+    email: EmailDTO,
+  ): Promise<{ message: string; success: boolean }> {
     const transport = createTransport({
       service: 'gmail',
       auth: {
@@ -41,10 +43,10 @@ export class EmailService {
         subject: email.subject,
         html,
       });
-      return { message: 'The email was send successfully' };
+      return { message: 'The email was sended successfully', success: true };
     } catch (error) {
       console.log('error', error);
-      return { message: error };
+      return { message: 'The email was not sended', success: false };
     }
   }
 

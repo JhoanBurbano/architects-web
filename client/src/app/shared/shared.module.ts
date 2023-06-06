@@ -5,6 +5,7 @@ import { SquareCardComponent } from './components/square-card/square-card.compon
 import { BandComponent } from './components/band/band.component';
 import { GridSquaresComponent } from './components/molecules/grid-squares/grid-squares.component';
 import { CarouselSliderComponent } from './components/carousel-slider/carousel-slider.component';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 
 
 
@@ -25,6 +26,7 @@ import { CarouselSliderComponent } from './components/carousel-slider/carousel-s
     BandComponent,
     GridSquaresComponent,
     CarouselSliderComponent,
+    MatSnackBarModule,
   ]
 })
 export class SharedModule { }

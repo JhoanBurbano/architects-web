@@ -5,7 +5,6 @@ import {
   HttpException,
   Patch,
   Post,
-  Put,
   Query,
 } from '@nestjs/common';
 import { LoginDTO } from 'src/dto/login.dto';
@@ -46,7 +45,6 @@ export class UserController {
   @Post('login')
   async login(@Body() credentials: LoginDTO) {
     try {
-      console.log('credentials', credentials);
       return await this.usersService.login(credentials);
     } catch (error) {
       throw new HttpException(

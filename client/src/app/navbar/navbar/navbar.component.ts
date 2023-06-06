@@ -8,8 +8,20 @@ import { CookieService } from "ngx-cookie-service";
   styleUrls: ["./navbar.component.scss"],
 })
 export class NavbarComponent implements OnInit {
-  isLog: boolean = this.cookieService.check("ACCESS_TOKEN");
-
+  public isLog: boolean = this.cookieService.check("ACCESS_TOKEN");
+  public title = "Architect";
+  public list: any[] = [
+    {
+      name: "Login",
+      url: "/auth/login",
+      icon: "fas fa-user",
+    },
+    {
+      name: "Signup",
+      url: "/auth/signup",
+      icon: "fas fa-user",
+    },
+  ];
   ngOnInit(): void {
     this.router.events.subscribe((event) => {
       if (event instanceof NavigationEnd) {
@@ -23,24 +35,7 @@ export class NavbarComponent implements OnInit {
     });
   }
   constructor(private cookieService: CookieService, private router: Router) {}
-  title = "Architect";
-  list: any = [
-    {
-      name: "Login",
-      url: "/auth/login",
-      icon: "fas fa-user",
-    },
-    {
-      name: "Signup",
-      url: "/auth/signup",
-      icon: "fas fa-user",
-    },
-    {
-      name: "About",
-      url: "/about",
-      icon: "fas fa-user",
-    },
-  ];
+
   navDinamic(token: string | null, name: string | null, rol: string | null) {
     if (token && name && rol) {
       this.list = [
@@ -66,11 +61,6 @@ export class NavbarComponent implements OnInit {
           name: "Signup",
           url: "/auth/signup",
           icon: "fas fa-user-plus",
-        },
-        {
-          name: "About",
-          url: "/about",
-          icon: "far fa-question-circle",
         },
       ];
     }

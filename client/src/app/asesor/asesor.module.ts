@@ -9,12 +9,14 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { CookieService } from 'ngx-cookie-service';
 import { ToastrService } from 'ngx-toastr';
 import { SharedModule } from '@shared/shared.module';
+import { CapitalizePipe } from '@src/pipes/capitalize.pipe';
 
 
 @NgModule({
   declarations: [
     InmueblesComponent,
     NewInmbuebleComponent,
+    CapitalizePipe
   ],
   imports: [
     CommonModule,

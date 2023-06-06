@@ -11,7 +11,11 @@ import { NextFunction, Response } from 'express';
 @Injectable()
 export class MiddlewareMiddleware implements NestMiddleware {
   constructor(@Inject(ConfigService) private configService: ConfigService) {}
-  use(@Headers() headers: Headers, res: Response, @Next() next: NextFunction) {
+  use(
+    @Headers('secret') headers: Headers,
+    res: Response,
+    @Next() next: NextFunction,
+  ) {
     if (headers) {
       console.log('headers', headers);
     }

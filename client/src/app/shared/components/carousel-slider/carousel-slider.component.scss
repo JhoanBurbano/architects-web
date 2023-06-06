@@ -2,11 +2,14 @@
 .architects-carousel {
     height: 500px;
     overflow: hidden;
-    background: $black;
+    background: $black_t;
     background-size: cover;
     width: 100%;
     border-radius: 8px 8px 0 0;
     position: relative;
+    @media screen and (max-width: 500px) {
+        height: 250px;
+    }
     &__view{
         width: 100%;
         height: 100%;
@@ -24,6 +27,9 @@
         overflow: hidden;
         padding: 0 10px;
         background: $black_t;
+        @media screen and (max-width: 500px) {
+            height: 50px;
+        }
         &-item{
             backdrop-filter: blur(3px);
             height: 100%;
@@ -32,6 +38,9 @@
             padding: 5px;
             cursor: pointer;
             user-select: none;
+            @media screen and (max-width: 500px) {
+                width: 50px;
+            }
             &-img{
                 width: 100%;
                 height: 100%;

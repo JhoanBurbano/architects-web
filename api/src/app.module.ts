@@ -5,9 +5,10 @@ import { AppService } from './app.service';
 import config from './services/AWS/config';
 import { MongooseModule } from '@nestjs/mongoose';
 import { UserModule } from './user/user.module';
-import { JwtModule, JwtService } from '@nestjs/jwt';
-import { JwtTokenService } from './services/jwt.service';
-import { UsersService } from './services/users.service';
+import { JwtModule } from '@nestjs/jwt';
+import { ProfileModule } from './profile/profile.module';
+import { PropertyModule } from './property/property.module';
+import { Property, PropertySchema } from './schemas/property.schema';
 
 @Module({
   imports: [
@@ -39,7 +40,12 @@ import { UsersService } from './services/users.service';
         },
       }),
     }),
+    MongooseModule.forFeature([
+      { name: Property.name, schema: PropertySchema },
+    ]),
     UserModule,
+    ProfileModule,
+    PropertyModule,
   ],
   controllers: [AppController],
   providers: [AppService],

@@ -8,9 +8,10 @@ import { Component, Input, OnInit } from '@angular/core';
 export class CardsComponent implements OnInit {
   @Input() card: any;
 
-  constructor() { }
-
+  constructor() {}
+  
   ngOnInit(): void {
+    console.log('card', this.card.images[0])
   }
 
 }

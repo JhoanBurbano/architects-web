@@ -52,6 +52,9 @@
     flex-direction: column;
     padding: 0 0.5rem;
     justify-content: space-evenly;
+    & p {
+      margin-bottom: 0;
+    }
     &-title {
       font-size: 1.25rem;
     }

@@ -8,7 +8,6 @@ const routes: Routes = [
   {
     path: '',
     children: [
-      {path: 'inmuebles', component: InmueblesComponent},
       {path: 'post-inmueble', component: NewInmbuebleComponent},
       {path: 'post-inmueble/:id', component: NewInmbuebleComponent},
       {path: '**', redirectTo: 'inmuebles'},

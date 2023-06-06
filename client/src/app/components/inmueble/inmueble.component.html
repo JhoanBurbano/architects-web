@@ -1,97 +1,47 @@
-<div class="Container">
-  <div class="Chart Inmueble">
-    <div *ngIf="inmueble" class="Inmueble">
-      <div
-        class="img"
-      >
-      <app-carousel-slider
-      [images]="inmueble.img"
-      ></app-carousel-slider>
-        <span *ngIf="rol === 'CLIENT'">
-          <span
-            ><p>{{ inmueble.favs }}</p></span
-          >
-          <i
-            (click)="addFavorite(inmueble._id)"
-            [class]="
-              favoritos.includes(inmueble._id) ? 'fas fa-heart' : 'far fa-heart'
-            "
-          ></i>
-        </span>
-        <span *ngIf="rol !== 'CLIENT'">
-          <span
-            ><p>{{ inmueble.favs }}</p></span
-          >
-          <i (click)="noLogin()" class="fas fa-heart"></i>
-        </span>
-      </div>
-      <div class="desc">
-        <h3>{{ inmueble.type }}</h3>
-        <p class="description">{{ inmueble.description }}</p>
-        <h4 class="char">Caracteristicas</h4>
-        <h4 class="loc">Ubicacion</h4>
-        <div class="location">
-          <p>{{ inmueble.sector }}</p>
-          <p>
+
+<div class="architects-property">
+  <div class="architects-property__content" *ngIf="inmueble">
+    <app-carousel-slider [images]="inmueble.images"></app-carousel-slider>
+    <div class="architects-property__content-information">
+      <h2 class="architects-property__content-information-type">{{inmueble.type}}</h2>
+      <p class="architects-property__content-information-description">{{inmueble.description}}</p>
+      <section class="architects-property__content-information-features">
+        <h3 class="architects-property__content-information-features-title">Caracterisiticas</h3>
+        <div class="architects-property__content-information-features-icons">
+          <span class="architects-property__content-information-features-icons-item">
+            <i class="fas fa-layer-group"></i>
+            <p>{{ inmueble.features.levels }} pisos</p>
+          </span>
+          <span class="architects-property__content-information-features-icons-item">
+            <i class="fas fa-door-closed"></i>
+            <p>{{ inmueble.features.rooms }} cuartos</p>
+          </span>
+          <span class="architects-property__content-information-features-icons-item"><i class="fas fa-bath"></i>
+            <p>{{ inmueble.features.baths }} baños</p>
+          </span>
+          <span class="architects-property__content-information-features-icons-item"><i class="fas fa-car"></i>
+            <p>{{ inmueble.features.garage ? 'Si' : 'No'}}</p>
+          </span>
+        </div>
+      </section>
+      <section class="architects-property__content-information-location">
+        <h3 class="architects-property__content-information-location-title">Ubicacion</h3>
+        <div class="architects-property__content-information-location-items">
+          <p class="architects-property__content-information-location-items-sector">{{ inmueble.sector }}</p>
+          <p class="architects-property__content-information-location-items-city">
             <b>{{ inmueble.city }}</b>
           </p>
           <i class="fas fa-map"></i>
         </div>
-        <div class="icons">
-          <p>
-            <i class="fas fa-layer-group"></i>{{ inmueble.attr.levels }} pisos
-          </p>
-          <p>
-            <i class="fas fa-door-closed"></i>{{ inmueble.attr.rooms }} cuartos
-          </p>
-          <p><i class="fas fa-bath"></i>{{ inmueble.attr.baths }} baños</p>
-          <p><i class="fas fa-car"></i>{{ inmueble.attr.garage }} puestos</p>
-        </div>
-        <p class="price">
-          desde
-          <b>{{
-            inmueble.price | currency : "COP" : "symbol-narrow" : "4.0-0"
-          }}</b>
-          pesitos
-        </p>
-        <h4 class="tag">Tags</h4>
-        <p class="tags">
-          <b *ngFor="let i of inmueble.tags">{{ i }}</b>
-        </p>
-        <button class="pay"><i class="fab fa-paypal"></i></button>
-      </div>
-    </div>
-  </div>
-  <div class="Chart Comments">
-    <div *ngIf="comments.length > 0" class="View Comments">
-      <h3>Comentarios</h3>
-      <div class="Comentario" *ngFor="let c of comments">
-        <h5>{{ c.user === name ? "Tú" : c.user }}</h5>
-        <p>{{ c.content }}</p>
-      </div>
-    </div>
-    <div *ngIf="comments.length === 0" class="View NoComment">
-      <h5>No hay comentarios todavía</h5>
-    </div>
-    <h5>
-      {{
-        rol === ""
-          ? "Debes iniciar sesion para comentar"
-          : "Escribe un comentario"
-      }}
-    </h5>
-    <div class="NewComment" *ngIf="rol === 'CLIENT'">
-      <form [formGroup]="commentForm" (submit)="addComment($event)">
-        <h5>{{ name }}</h5>
-        <textarea
-          formControlName="content"
-          placeholder="Escribe aquí tu comentario"
-          required
-        ></textarea>
-        <button type="submit" [disabled]="!commentForm.valid">
-          Publicar comentario
-        </button>
-      </form>
+      </section>
+      <p class="architects-property__content-information-price">Por solo <b>{{inmueble.price | currency : "COP" : "symbol-narrow" :
+        "4.0-0"}} USD</b> </p>
+      <section class="architects-property__content-information-tags">
+        <h3 class="architects-property__content-information-tags-title">Etiquetas</h3>
+        <span class="architects-property__content-information-tags-container">
+          <p class="architects-property__content-information-tags-container-tag" *ngFor="let i of inmueble.tags">{{ i }}</p>
+        </span>
+      </section>
     </div>
   </div>
 </div>

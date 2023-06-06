@@ -19,6 +19,7 @@ export class GridSquaresComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
+    console.log('inmuebles', this.inmuebles)
   }
 
   deleteInmueble(id: string){

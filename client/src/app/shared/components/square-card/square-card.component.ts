@@ -19,6 +19,7 @@ export class SquareCardComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
+    console.log('this.inmueble', this.inmueble)
   }
 
   deleteInmueble(id: string){

@@ -1,17 +1,20 @@
-<div class="Container">
-    <div class="Chart">
-      <h2>Sing Up</h2>
-      <form [formGroup]="signupForm" (ngSubmit)="signUp()" required>
-        <label>
-          <input formControlName="name" name="name" type="text" placeholder="ingrese su nombre"  required/>
+<div class="architects-signup">
+    <div class="architects-signup__content">
+      <h2 class="architects-signup__content-title">Sign up</h2>
+      <form class="architects-signup__content-form" [formGroup]="signupForm" (ngSubmit)="signUp()" required>
+        <label class="architects-signup__content-form-label">
+          <p class="architects-signup__content-form-label-field">name</p>
+          <input class="architects-signup__content-form-label-input" formControlName="name" name="name" type="text" placeholder="ingrese su nombre"  required/>
         </label>
-        <div style="font-size: .8rem; color: #300; overflow: visible;" class="txt-dgr"  *ngIf="signupForm.get('name')?.hasError('required') && signupForm.get('name')?.touched"><p>Name is <strong>Required</strong> </p></div>
-        <label>
-          <input formControlName="lastname" name="lastname" type="text" placeholder="ingrese su apellido"  required/>
+        <p class="architects-signup__content-form-error" *ngIf="signupForm.get('name')?.hasError('required') && signupForm.get('name')?.touched">Name is <strong>Required</strong></p>
+        <label class="architects-signup__content-form-label">
+          <p class="architects-signup__content-form-label-field">lastname</p>
+          <input class="architects-signup__content-form-label-input" formControlName="lastname" name="lastname" type="text" placeholder="ingrese su apellido"  required/>
         </label>
-        <div style="font-size: .8rem; color: #300; overflow: visible;" class="txt-dgr"  *ngIf="signupForm.get('lastname')?.hasError('required') && signupForm.get('lastname')?.touched"><p>Lastname is <strong>Required</strong> </p></div>
-        <label>
-          <select formControlName="rol" name="rol" required>
+        <p class="architects-signup__content-form-error" *ngIf="signupForm.get('lastname')?.hasError('required') && signupForm.get('lastname')?.touched">Lastname is <strong>Required</strong></p>
+        <label class="architects-signup__content-form-label">
+          <p class="architects-signup__content-form-label-field">rol</p>
+          <select class="architects-signup__content-form-label-input" formControlName="rol" name="rol" required>
             <option value="" selected disabled>Seleccione su rol</option>
             <option value="CLIENT">Cliente</option>
             <option value="ASESOR">Asesor</option>
@@ -19,21 +22,24 @@
             <option value="ADMIN">Administrador</option>
           </select>
         </label>
-        <div style="font-size: .8rem; color: #300; overflow: visible;" class="txt-dgr"  *ngIf="signupForm.get('rol')?.hasError('required') && signupForm.get('rol')?.touched"><p>rol is <strong>Required</strong> </p></div>
-        <label>
-          <input formControlName="number" name="number" type="number" placeholder="ingrese su telefono"  required/>
+        <p class="architects-signup__content-form-error" *ngIf="signupForm.get('rol')?.hasError('required') && signupForm.get('rol')?.touched">rol is <strong>Required</strong></p>
+        <label class="architects-signup__content-form-label">
+          <p class="architects-signup__content-form-label-field">number</p>
+          <input class="architects-signup__content-form-label-input" formControlName="number" name="number" type="number" placeholder="ingrese su telefono"  required/>
         </label>
-        <div style="font-size: .8rem; color: #300; overflow: visible;" class="txt-dgr"  *ngIf="signupForm.get('number')?.hasError('required') && signupForm.get('number')?.touched"><p>number is <strong>Required</strong> </p></div>
-        <label>
-          <input formControlName="email" name="email" type="email" placeholder="ingrese su e-mail"  required/>
+        <p class="architects-signup__content-form-error" *ngIf="signupForm.get('number')?.hasError('required') && signupForm.get('number')?.touched">number is <strong>Required</strong></p>
+        <label class="architects-signup__content-form-label">
+          <p class="architects-signup__content-form-label-field">email</p>
+          <input class="architects-signup__content-form-label-input" formControlName="email" name="email" type="email" placeholder="ingrese su e-mail"  required/>
       </label>
-      <div style="font-size: .8rem; color: #300; overflow: visible;" class="txt-dgr"  *ngIf="signupForm.get('email')?.hasError('required') && signupForm.get('email')?.touched"><p>email is <strong>Required</strong> </p></div>
-      <label>
-          <input formControlName="password" name="password" type="password" placeholder="ingrese su contraseña"  required/>
+      <p class="architects-signup__content-form-error" *ngIf="signupForm.get('email')?.hasError('required') && signupForm.get('email')?.touched">email is <strong>Required</strong></p>
+      <label class="architects-signup__content-form-label">
+        <p class="architects-signup__content-form-label-field">password</p>
+          <input class="architects-signup__content-form-label-input" formControlName="password" name="password" type="password" placeholder="ingrese su contraseña"  required/>
         </label>
-        <div style="font-size: .8rem; color: #300; overflow: visible;" class="txt-dgr"  *ngIf="signupForm.get('password')?.hasError('required') && signupForm.get('password')?.touched"><p>password is <strong>Required</strong></p></div>
+        <p class="architects-signup__content-form-error" *ngIf="signupForm.get('password')?.hasError('required') && signupForm.get('password')?.touched">password is <strong>Required</strong></p>
         <re-captcha formControlName="captcha" required [siteKey]="SITE_KEY" style="overflow: visible;"></re-captcha>
-        <button type="submit" [disabled]="!signupForm.valid">Sing Up</button>
+        <button class="architects-signup__content-form-submit" type="submit" [disabled]="!signupForm.valid">Sing Up</button>
       </form>
     </div>
   </div>

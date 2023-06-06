@@ -30,5 +30,5 @@ export function getAWSPATH(folder: string, name: string) {
     AWS: { BUCKET_REGION, BUCKET },
     AWS: { QR_PATH },
   } = environment();
-  return `https://${BUCKET}.s3.${BUCKET_REGION}.amazonaws.com/${QR_PATH}${folder}${name}.png`;
+  return `https://${BUCKET}.s3.${BUCKET_REGION}.amazonaws.com/${QR_PATH}${folder}/${name}.png`;
 }

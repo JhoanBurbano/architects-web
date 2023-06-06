@@ -1,16 +1,16 @@
-<div class="architects-cards">
+<div class="architects-cards" *ngIf="card">
     <div class="architects-cards__content">
       <h4>{{card.type}}</h4>
       <p>{{card.sector}}</p>
       <p>{{card.city}}</p>
       <div class="icons">
-        <p><i class="fas fa-layer-group"></i>{{card.attr.levels}}</p>
-        <p><i class="fas fa-door-closed"></i>{{card.attr.rooms}}</p>
-        <p><i class="fas fa-bath"></i>{{card.attr.baths}}</p>
-        <p><i class="fas fa-car"></i>{{card.attr.garage}}</p>
+        <p><i class="fas fa-layer-group"></i>{{card.features.levels}}</p>
+        <p><i class="fas fa-door-closed"></i>{{card.features.rooms}}</p>
+        <p><i class="fas fa-bath"></i>{{card.features.baths}}</p>
+        <p><i class="fas fa-car"></i>{{card.features.garage}}</p>
       </div>
     </div>
-    <div class="architects-cards-img" style="background: url('{{card.img[0]}}');">
-      <img [src]="card.img[0]" alt="">
+    <div class="architects-cards-img" style="background: url('{{card.images[0]}}');">
+      <img [src]="card.images[0]" alt="">
     </div>
   </div>

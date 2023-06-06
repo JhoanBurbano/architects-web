@@ -9,7 +9,7 @@ export type PropertyDocument = HydratedDocument<Property>;
 
 @Schema()
 export class Property {
-  @Prop({ type: TypeProperty })
+  @Prop({ type: String })
   type: TypeProperty;
 
   @Prop({ type: String })
@@ -37,10 +37,19 @@ export class Property {
   isActive: string[];
 
   @Prop({ type: [{ type: _Schema.Types.ObjectId, ref: 'Comment' }] })
-  commets: Comment[];
+  comments: Comment[];
 
   @Prop({ type: FeatureSchema, required: true })
   features: Feature;
+
+  @Prop({
+    type: Number,
+    required: true,
+    max: 1000000,
+    min: 80000,
+    default: 80000,
+  })
+  price: number;
 }
 
 export const PropertySchema = SchemaFactory.createForClass(Property);
