@@ -1,7 +1,7 @@
 import { Document, HydratedDocument, Schema as _Schema } from 'mongoose';
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { Property } from './property.schema';
-import { UserStatus } from 'src/enums/user-status.enum';
+import { UserStatus } from '../enums/user-status.enum';
 import { ROL } from 'src/enums/rol.enum';
 import bcrypt from 'bcrypt';
 
