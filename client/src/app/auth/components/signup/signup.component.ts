@@ -1,6 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { environment } from '@src/environments/environment';
 import { ToastrService } from 'ngx-toastr';
 import { Subject } from 'rxjs';
 import { UserI, Usuario } from 'src/app/models/user';
@@ -14,7 +15,7 @@ import { UserService } from 'src/app/services/user.service';
 export class SignupComponent implements OnInit, OnDestroy {
   signupForm: FormGroup;
   isValid:boolean=false
-  SITE_KEY:string='6Le1n0cdAAAAADIbgkv_eIFWhJK0M06pxzOFPiGh'
+  SITE_KEY = environment.RECAPTCHA_SITE_KEY
   private unsubscribe$: Subject<void> = new Subject<void>();
   constructor(
     private fb: FormBuilder,
