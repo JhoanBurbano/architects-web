@@ -3,12 +3,12 @@ import { InjectModel } from '@nestjs/mongoose';
 import { Model, Types } from 'mongoose';
 import { S3Service } from './AWS/aws.service';
 import { JwtTokenService } from './jwt.service';
-import { Property, PropertyDocument } from 'src/schemas/property.schema';
+import { Property, PropertyDocument } from '../schemas/property.schema';
 import * as uuid from 'uuid';
 import { FileUpload } from 'express-fileupload';
-import { createPropertyDTO } from 'src/dto/create-property.dto';
-import { User, UserDocument } from 'src/schemas/user.schema';
-import { cities } from 'src/constants/cities.constants';
+import { createPropertyDTO } from '../dto/create-property.dto';
+import { User, UserDocument } from '../schemas/user.schema';
+import { cities } from '../constants/cities.constants';
 
 @Injectable()
 export class PropertyService {

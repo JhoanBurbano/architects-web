@@ -1,3 +1,3 @@
-import { User } from 'src/schemas/user.schema';
+import { User } from '../schemas/user.schema';
 
 export type UserKeysType = keyof User;

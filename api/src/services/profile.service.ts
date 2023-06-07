@@ -1,12 +1,12 @@
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
-import { User, UserDocument } from 'src/schemas/user.schema';
-import { JwtTokenService } from 'src/services/jwt.service';
+import { User, UserDocument } from '../schemas/user.schema';
+import { JwtTokenService } from '../services/jwt.service';
 import { S3Service } from './AWS/aws.service';
-import { updateProfileDTO } from 'src/dto/update-profile.dto';
+import { updateProfileDTO } from '../dto/update-profile.dto';
 import { FileUpload } from 'express-fileupload';
-import { UserKeysType } from 'src/interfaces/user-keys.interface';
+import { UserKeysType } from '../interfaces/user-keys.interface';
 @Injectable()
 export class ProfileService {
   constructor(

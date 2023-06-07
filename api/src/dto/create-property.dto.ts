@@ -1,5 +1,5 @@
 import { IsJWT, IsString } from 'class-validator';
-import { Property } from 'src/schemas/property.schema';
+import { Property } from '../schemas/property.schema';
 
 export class createPropertyDTO {
   @IsJWT()

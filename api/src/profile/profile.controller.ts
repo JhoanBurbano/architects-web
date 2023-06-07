@@ -12,10 +12,10 @@ import {
   UseInterceptors,
 } from '@nestjs/common';
 import { FileInterceptor } from '@nestjs/platform-express';
-import { ProfileService } from 'src/services/profile.service';
+import { ProfileService } from '../services/profile.service';
 import { FileUpload } from 'express-fileupload';
-import { updateProfileDTO } from 'src/dto/update-profile.dto';
-import { UserKeysType } from 'src/interfaces/user-keys.interface';
+import { updateProfileDTO } from '../dto/update-profile.dto';
+import { UserKeysType } from '../interfaces/user-keys.interface';
 
 @Controller('profile')
 export class ProfileController {

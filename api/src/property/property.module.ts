@@ -1,12 +1,12 @@
 import { Module } from '@nestjs/common';
 import { PropertyController } from './property.controller';
-import { Property, PropertySchema } from 'src/schemas/property.schema';
+import { Property, PropertySchema } from '../schemas/property.schema';
 import { MongooseModule } from '@nestjs/mongoose';
-import { S3Service } from 'src/services/AWS/aws.service';
+import { S3Service } from '../services/AWS/aws.service';
 import { JwtService } from '@nestjs/jwt';
-import { JwtTokenService } from 'src/services/jwt.service';
-import { PropertyService } from 'src/services/property.service';
-import { User, UserSchema } from 'src/schemas/user.schema';
+import { JwtTokenService } from '../services/jwt.service';
+import { PropertyService } from '../services/property.service';
+import { User, UserSchema } from '../schemas/user.schema';
 
 @Module({
   imports: [

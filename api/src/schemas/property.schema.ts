@@ -1,8 +1,8 @@
 import { HydratedDocument, Schema as _Schema } from 'mongoose';
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { User } from './user.schema';
-import { TypeProperty } from 'src/enums/type-property.enum';
-import { City } from 'src/constants/cities.constants';
+import { TypeProperty } from '../enums/type-property.enum';
+import { City } from '../constants/cities.constants';
 import { FeatureSchema, Feature } from './feature.schema';
 
 export type PropertyDocument = HydratedDocument<Property>;

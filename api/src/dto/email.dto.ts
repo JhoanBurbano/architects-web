@@ -1,6 +1,6 @@
 import { IsEmail, IsNotEmpty, IsString } from 'class-validator';
-import { SubjectEmail } from 'src/enums/subject-email.enum';
-import { TemplateEmail } from 'src/enums/template-email.enum';
+import { SubjectEmail } from '../enums/subject-email.enum';
+import { TemplateEmail } from '../enums/template-email.enum';
 
 export class EmailDTO {
   @IsEmail()

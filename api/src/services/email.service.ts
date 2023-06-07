@@ -1,13 +1,13 @@
 import { Injectable } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { createTransport } from 'nodemailer';
-import { EmailDTO } from 'src/dto/email.dto';
+import { EmailDTO } from '../dto/email.dto';
 import * as mustache from 'mustache';
 import { S3Service } from './AWS/aws.service';
-import { TemplateEmail } from 'src/enums/template-email.enum';
-import { DataTemplateDTO } from 'src/dto/data-templates.dto';
+import { TemplateEmail } from '../enums/template-email.enum';
+import { DataTemplateDTO } from '../dto/data-templates.dto';
 import mjm2html from 'mjml';
-import { Redirects } from 'src/enums/redirects.enum';
+import { Redirects } from '../enums/redirects.enum';
 import { JwtTokenService } from './jwt.service';
 
 @Injectable()

@@ -5,7 +5,7 @@ import {
   IsString,
   IsUrl,
 } from 'class-validator';
-import { ROL } from 'src/enums/rol.enum';
+import { ROL } from '../enums/rol.enum';
 
 export class updateProfileDTO {
   @IsNotEmpty()

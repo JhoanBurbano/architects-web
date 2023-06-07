@@ -11,8 +11,8 @@ import {
   UseInterceptors,
 } from '@nestjs/common';
 import { FilesInterceptor } from '@nestjs/platform-express';
-import { PropertyDTO } from 'src/dto/create-property.dto';
-import { PropertyService } from 'src/services/property.service';
+import { PropertyDTO } from '../dto/create-property.dto';
+import { PropertyService } from '../services/property.service';
 import { FileUpload } from 'express-fileupload';
 
 @Controller('property')

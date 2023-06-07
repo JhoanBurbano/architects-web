@@ -8,7 +8,7 @@ import { Inject, Injectable } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { getAWSPATH } from './config';
 import { Readable } from 'stream';
-import { TemplateEmail } from 'src/enums/template-email.enum';
+import { TemplateEmail } from '../../enums/template-email.enum';
 
 @Injectable()
 export class S3Service {

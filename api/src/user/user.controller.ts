@@ -7,14 +7,14 @@ import {
   Post,
   Query,
 } from '@nestjs/common';
-import { LoginDTO } from 'src/dto/login.dto';
-import { PasswordDTO } from 'src/dto/password.dto';
-import { SubjectEmail } from 'src/enums/subject-email.enum';
-import { TemplateEmail } from 'src/enums/template-email.enum';
-import { CreateUserDto } from 'src/schemas/user.schema';
-import { EmailService } from 'src/services/email.service';
-import { JwtTokenService } from 'src/services/jwt.service';
-import { UsersService } from 'src/services/users.service';
+import { LoginDTO } from '../dto/login.dto';
+import { PasswordDTO } from '../dto/password.dto';
+import { SubjectEmail } from '../enums/subject-email.enum';
+import { TemplateEmail } from '../enums/template-email.enum';
+import { CreateUserDto } from '../schemas/user.schema';
+import { EmailService } from '../services/email.service';
+import { JwtTokenService } from '../services/jwt.service';
+import { UsersService } from '../services/users.service';
 
 @Controller('auth')
 export class UserController {
