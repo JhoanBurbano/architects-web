@@ -3,7 +3,7 @@ import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { Property } from './property.schema';
 import { UserStatus } from '../enums/user-status.enum';
 import { ROL } from '../enums/rol.enum';
-import bcrypt from 'bcrypt';
+import * as bcrypt from 'bcrypt';
 
 export type UserDocument = HydratedDocument<User>;
 

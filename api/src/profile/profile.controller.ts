@@ -25,12 +25,11 @@ export class ProfileController {
     try {
       return await this.profileService.getProfile(token);
     } catch (error) {
-      console.log('error', error);
       throw new HttpException(
         {
-          statusCode: 'AR105',
-          message: 'Hubo un error al registrar el usuario',
-          error: 'USER_NO_REGISTERED',
+          statusCode: 'AR201',
+          message: 'Hubo un error al obtener el usuario',
+          error: 'CANNOT_GET_USER',
           _error: error,
         },
         400,
@@ -52,9 +51,9 @@ export class ProfileController {
       console.log('error', error);
       throw new HttpException(
         {
-          statusCode: 'AR105',
-          message: 'Hubo un error al registrar el usuario',
-          error: 'USER_NO_REGISTERED',
+          statusCode: 'AR202',
+          message: 'Hubo un error al obtener el usuario',
+          error: 'CANNOT_GET_FULL_USER',
           _error: error,
         },
         400,
