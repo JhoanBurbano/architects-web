@@ -10,7 +10,7 @@ import { environment } from 'src/environments/environment';
 })
 export class HomeService {
   public url=environment.API_URL
-  constructor(private cookie: CookieService, private http: HttpClient) { }
+  constructor(private cookie: CookieService, private http: HttpClient) {}
 
   getInmueble(idInm:any){
     return this.http.get<IProperty[]>(`${this.url}view/${idInm}`)

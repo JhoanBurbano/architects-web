@@ -13,9 +13,9 @@ import { UserService } from 'src/app/services/user.service';
   styleUrls: ['./signup.component.scss']
 })
 export class SignupComponent implements OnInit, OnDestroy {
-  signupForm: FormGroup;
-  isValid:boolean=false
-  SITE_KEY = environment.RECAPTCHA_SITE_KEY
+  public signupForm: FormGroup;
+  public isValid = false
+  public SITE_KEY = environment.RECAPTCHA_SITE_KEY
   private unsubscribe$: Subject<void> = new Subject<void>();
   constructor(
     private fb: FormBuilder,
@@ -40,10 +40,6 @@ export class SignupComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-  }
-
-  tryIsValid(){
-    alert(this.signupForm.valid)
   }
 
   signUp(){

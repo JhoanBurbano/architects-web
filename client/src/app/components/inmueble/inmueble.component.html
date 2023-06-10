@@ -44,4 +44,36 @@
       </section>
     </div>
   </div>
+  <div class="architects-property_comments">
+      <div *ngIf="comments.length > 0" class="View Comments">
+        <h3>Comentarios</h3>
+        <div class="Comentario" *ngFor="let c of comments">
+          <h5>{{ c.user === name ? "Tú" : c.user }}</h5>
+          <p>{{ c.content }}</p>
+        </div>
+      </div>
+      <div *ngIf="comments.length === 0" class="View NoComment">
+        <h5>No hay comentarios todavía</h5>
+      </div>
+      <h5>
+        {{
+          rol === ""
+            ? "Debes iniciar sesion para comentar"
+            : "Escribe un comentario"
+        }}
+      </h5>
+      <div class="NewComment" *ngIf="rol === 'CLIENT'">
+        <form [formGroup]="commentForm" (submit)="addComment($event)">
+          <h5>{{ name }}</h5>
+          <textarea
+            formControlName="content"
+            placeholder="Escribe aquí tu comentario"
+            required
+          ></textarea>
+          <button type="submit" [disabled]="!commentForm.valid">
+            Publicar comentario
+          </button>
+        </form>
+      </div>
+  </div>
 </div>
