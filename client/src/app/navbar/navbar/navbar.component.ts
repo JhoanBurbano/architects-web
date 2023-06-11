@@ -68,9 +68,9 @@ export class NavbarComponent implements OnInit {
 
   async logout() {
     this.router.navigate(["/"]);
-    this.cookieService.delete("ACCESS_TOKEN", "/", "localhost", false, "None");
-    this.cookieService.delete("USER", "/", "localhost", false, "None");
-    this.cookieService.delete("ROL", "/", "localhost", false, "None");
+    this.cookieService.delete("ACCESS_TOKEN");
+    this.cookieService.delete("USER");
+    this.cookieService.delete("ROL");
     this.navDinamic(null, null, null);
     this.isLog = false;
     location.reload();

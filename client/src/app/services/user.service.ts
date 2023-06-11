@@ -42,10 +42,6 @@ export class UserService {
       "ACCESS_TOKEN",
       token,
       parseInt(expiresIn),
-      "/",
-      "localhost",
-      false,
-      "None"
     );
   }
 
@@ -55,19 +51,11 @@ export class UserService {
       "USER",
       name,
       parseInt(auth.expiresIn),
-      "/",
-      "localhost",
-      false,
-      "None"
     );
     this.cookieService.set(
       "ROL",
       rol,
       parseInt(auth.expiresIn),
-      "/",
-      "localhost",
-      false,
-      "None"
     );
   };
 

@@ -40,15 +40,11 @@ export class ProfileService {
     return this.http.put(`${this.url}${id}`, formData).pipe(
       tap((res: any) => {
         if (this.cookie.get("USER") !== `${res.name} ${res.lastname}`) {
-          this.cookie.delete("USER", "/", "localhost", false, "None");
+          this.cookie.delete("USER");
           this.cookie.set(
             "USER",
             `${res.name} ${res.lastname}`,
-            parseInt(res.expiresIn),
-            "/",
-            "localhost",
-            false,
-            "None"
+            parseInt(res.expiresIn)
           );
         }
       })
