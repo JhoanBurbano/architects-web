@@ -14,11 +14,11 @@
        <div class="Views">
          <div class="Inmueble" *ngFor="let i of inmuebles">
            <div class="img" style="background: url('{{i.img[0]}}');background-position:center; background-size: cover">
-            <span *ngIf="rol==='CLIENT'">
+            <span *ngIf="rol===_ROL.USER">
               <span><p>{{i.favs}}</p></span>
               <i  (click)='addFavorite(i._id)' [class]="favoritos.includes(i._id)?'fas fa-heart':'far fa-heart'"></i>
             </span>
-            <span *ngIf="rol!=='CLIENT'">
+            <span *ngIf="rol!==_ROL.USER">
               <span><p>{{i.favs}}</p></span>
               <i  (click)='noLogin()' class="fas fa-heart"></i>
             </span>
@@ -56,7 +56,7 @@
       <app-band title="Los Mas Buscados"></app-band>
       <app-grid-squares
       [items]="inmuebles"
-      [showLikes]="!rol || rol === 'CLIENT'"
+      [showLikes]="!rol || rol === _ROL.USER"
       (view)="viewInmueble($event)"
       (like)="addFavorite($event)"
       ></app-grid-squares>

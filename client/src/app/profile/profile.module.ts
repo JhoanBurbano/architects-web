@@ -5,7 +5,6 @@ import { ProfileRoutingModule } from './profile-routing.module';
 import { LogoutComponent } from './components/logout/logout.component';
 import { MyAccountComponent } from './components/my-account/my-account.component';
 import { UserService } from '../services/user.service';
-import { CookieService } from 'ngx-cookie-service';
 import { ProfileService } from '../services/profile.service';
 import { RouterModule } from '@angular/router';
 import { ReactiveFormsModule } from '@angular/forms';
@@ -29,6 +28,6 @@ import { MatIconModule } from '@angular/material/icon';
     MatButtonModule,
 		MatIconModule,
   ],
-  providers: [CookieService, UserService, ProfileService],
+  providers: [UserService, ProfileService],
 })
 export class ProfileModule {}

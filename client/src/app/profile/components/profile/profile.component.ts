@@ -1,7 +1,8 @@
 import { Component, OnDestroy, OnInit } from "@angular/core";
 import { Router } from "@angular/router";
+import { Keys, ROL } from "@src/app/enums/global.enum";
 import { AsesorService } from "@src/app/services/asesor.service";
-import { CookieService } from "ngx-cookie-service";
+import { LocalStorageService } from "@src/app/services/local-storage.service";
 import { ToastrService } from "ngx-toastr";
 import { Subject, catchError, of, switchMap, takeUntil } from "rxjs";
 import { ProfileService } from "src/app/services/profile.service";
@@ -13,16 +14,17 @@ import { ProfileService } from "src/app/services/profile.service";
 })
 export class ProfileComponent implements OnInit, OnDestroy {
   public datos: any = {};
-  public rol: any = this.cookie.get("ROL");
+  public rol: any = this.localStorage.getKey(Keys.ROL);
   public cards: any = [];
   public isLoadImage: boolean = false;
   private unsubscribe$: Subject<void> = new Subject<void>();
   public showPanel = false;
+  public _ROL = ROL;
   constructor(
     private profile$: ProfileService,
     private assesor$: AsesorService,
     private toast: ToastrService,
-    private cookie: CookieService,
+    private localStorage: LocalStorageService,
     private router: Router
   ) {}
 
@@ -77,7 +79,7 @@ export class ProfileComponent implements OnInit, OnDestroy {
 
   viewInmueble(_id: string) {
     console.log('_id view', _id)
-    // this.router.navigate(["inmueble/", _id]);
+    this.router.navigate(["inmueble/", _id]);
   }
 
   onClickToggle(){

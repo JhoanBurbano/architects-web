@@ -1,6 +1,5 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { CookieService } from 'ngx-cookie-service';
 import { Observable } from 'rxjs';
 import { IProperty } from '../models/properties';
 import { environment } from 'src/environments/environment';
@@ -10,7 +9,7 @@ import { environment } from 'src/environments/environment';
 })
 export class HomeService {
   public url=environment.API_URL
-  constructor(private cookie: CookieService, private http: HttpClient) {}
+  constructor( private http: HttpClient) {}
 
   getInmueble(idInm:any){
     return this.http.get<IProperty[]>(`${this.url}view/${idInm}`)

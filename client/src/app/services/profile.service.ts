@@ -1,11 +1,10 @@
 import { HttpClient, HttpParams } from "@angular/common/http";
 import { Injectable } from "@angular/core";
-import { Router } from "@angular/router";
-import { CookieService } from "ngx-cookie-service";
 import { Observable, tap } from "rxjs";
 import { UserI } from "../models/user";
 import { environment } from "src/environments/environment";
 import { IGetFullProfileResponse, IUploadImageResponse } from "../models/http-responses.interface";
+import { LocalStorageService } from "./local-storage.service";
 
 @Injectable({
   providedIn: "root",
@@ -15,8 +14,7 @@ export class ProfileService {
 
   constructor(
     private http: HttpClient,
-    private cookie: CookieService,
-    private router: Router
+    private localStorage: LocalStorageService
   ) {}
 
   getData(): Observable<any> {
@@ -39,14 +37,7 @@ export class ProfileService {
   updateProfile(formData: UserI, id: string): Observable<any> {
     return this.http.put(`${this.url}${id}`, formData).pipe(
       tap((res: any) => {
-        if (this.cookie.get("USER") !== `${res.name} ${res.lastname}`) {
-          this.cookie.delete("USER");
-          this.cookie.set(
-            "USER",
-            `${res.name} ${res.lastname}`,
-            parseInt(res.expiresIn)
-          );
-        }
+        this.localStorage.updateChangeUser(`${res.name} ${res.lastname}`);
       })
     );
   }

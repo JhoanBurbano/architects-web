@@ -1,6 +1,5 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { CookieService } from 'ngx-cookie-service';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
 
@@ -9,13 +8,10 @@ import { environment } from 'src/environments/environment';
 })
 export class SecurityService {
 	public url=`${environment.API_URL}security/`;
-	constructor(private http: HttpClient, private cookie: CookieService) {}
+	constructor(private http: HttpClient) {}
 
 	public getUser(): Observable<any> {
-    let token: string = this.cookie.get("ACCESS_TOKEN")
-		return this.http.get<any>(`${this.url}accounts`, {
-			headers: { token: token}
-		});
+		return this.http.get<any>(`${this.url}accounts`);
 	}
 
 	public delUser(email:string): Observable<any>{

@@ -1,6 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { ROL } from '@src/app/enums/global.enum';
 import { environment } from '@src/environments/environment';
 import { ToastrService } from 'ngx-toastr';
 import { Subject } from 'rxjs';
@@ -16,6 +17,7 @@ export class SignupComponent implements OnInit, OnDestroy {
   public signupForm: FormGroup;
   public isValid = false
   public SITE_KEY = environment.RECAPTCHA_SITE_KEY
+  public _ROL = ROL;
   private unsubscribe$: Subject<void> = new Subject<void>();
   constructor(
     private fb: FormBuilder,

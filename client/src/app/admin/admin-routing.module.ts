@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { AdminGuard } from '../Guards/admin.guard';
+import { AdminGuard } from '../guards/admin.guard';
 import { ClientsComponent } from './components/clients/clients.component';
 
 const routes: Routes = [

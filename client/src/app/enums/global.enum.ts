@@ -5,3 +5,16 @@ export enum TypeNotify {
   DARK = "dark",
   WARNING = "warning",
 }
+
+export enum Keys {
+  USER = "USER",
+  ROL = "ROL",
+  TOKEN = "TOKEN",
+}
+
+export enum ROL {
+  ADMIN = 'ADMIN',
+  USER = 'USER',
+  ASESOR = 'ASESOR',
+  SECURITY = 'SECURITY',
+}

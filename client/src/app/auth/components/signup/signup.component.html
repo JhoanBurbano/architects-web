@@ -16,8 +16,8 @@
           <p class="architects-signup__content-form-label-field">rol</p>
           <select class="architects-signup__content-form-label-input" formControlName="rol" name="rol" required>
             <option value="" selected disabled>Seleccione su rol</option>
-            <option value="CLIENT">Cliente</option>
-            <option value="ASESOR">Asesor</option>
+            <option [value]="_ROL.USER">{{_ROL.USER}}</option>
+            <option [value]="_ROL.ASESOR">{{_ROL.ASESOR}}</option>
           </select>
         </label>
         <p class="architects-signup__content-form-error" *ngIf="signupForm.get('rol')?.hasError('required') && signupForm.get('rol')?.touched">rol is <strong>Required</strong></p>
@@ -37,7 +37,7 @@
         </label>
         <p class="architects-signup__content-form-error" *ngIf="signupForm.get('password')?.hasError('required') && signupForm.get('password')?.touched">password is <strong>Required</strong></p>
         <re-captcha formControlName="captcha" required [siteKey]="SITE_KEY" style="overflow: visible;"></re-captcha>
-        <button class="architects-signup__content-form-submit" type="submit" [disabled]="!signupForm.valid">Sing Up</button>
+        <button class="architects-signup__content-form-submit" type="submit" [disabled]="!signupForm.valid">Send</button>
       </form>
     </div>
   </div>

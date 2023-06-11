@@ -62,7 +62,7 @@
             : "Escribe un comentario"
         }}
       </h5>
-      <div class="NewComment" *ngIf="rol === 'CLIENT'">
+      <div class="NewComment" *ngIf="rol === _ROL.USER">
         <form [formGroup]="commentForm" (submit)="addComment($event)">
           <h5>{{ name }}</h5>
           <textarea

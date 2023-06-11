@@ -1,11 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { CookieService } from 'ngx-cookie-service';
 import { ToastrService } from 'ngx-toastr';
 import { IProperty } from '@src/app/models/properties';
 import { HomeService } from 'src/app/services/home.service';
 import { ProfileService } from 'src/app/services/profile.service';
 import Swal from 'sweetalert2';
+import { LocalStorageService } from '@src/app/services/local-storage.service';
+import { Keys, ROL } from '@src/app/enums/global.enum';
 
 @Component({
 	selector: 'app-home',
@@ -14,13 +15,14 @@ import Swal from 'sweetalert2';
 })
 export class HomeComponent implements OnInit {
 	encabezado = 'Los Mas Buscados';
-	rol = this.cookie.get('ROL');
+	rol = this.localStorage.getKey(Keys.ROL);
 	favoritos: [] | any = [];
+  _ROL = ROL;
 	constructor(
 		private profileS: ProfileService,
 		private homeS: HomeService,
 		private toast: ToastrService,
-		private cookie: CookieService,
+		private localStorage: LocalStorageService,
     private router: Router
 	) {}
 	inmuebles: IProperty[] = [];
@@ -46,7 +48,7 @@ export class HomeComponent implements OnInit {
 	}
 
   async loadFavorites(){
-    if(this.rol === 'CLIENT'){
+    if(this.rol === this._ROL.USER){
       try {
         this.favoritos = await this.homeS.getFavorites(null)
       } catch (error) {
@@ -59,7 +61,7 @@ export class HomeComponent implements OnInit {
     if(!this.rol){
       return this.noLogin()
     }
-    if(this.rol !== 'CLIENT'){
+    if(this.rol !== this._ROL.USER){
       this.toast.warning('Los Asesores no pueden dar likes', 'WARNING')
     }
 

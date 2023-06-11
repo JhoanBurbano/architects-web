@@ -1,7 +1,8 @@
 import { Component, OnDestroy, OnInit } from "@angular/core";
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { ActivatedRoute, Router } from "@angular/router";
-import { CookieService } from "ngx-cookie-service";
+import { Keys, ROL } from "@src/app/enums/global.enum";
+import { LocalStorageService } from "@src/app/services/local-storage.service";
 import { Subject, catchError, of, takeUntil } from "rxjs";
 import { HomeService } from "src/app/services/home.service";
 import Swal from "sweetalert2";
@@ -14,15 +15,15 @@ import Swal from "sweetalert2";
 export class InmuebleComponent implements OnInit, OnDestroy {
   public commentForm: FormGroup;
   public inmueble: any;
-  public rol = this.cookie.get("ROL");
+  public rol = this.localStorage.getKey(Keys.ROL);
   public favoritos: [] | any = [];
-  public name = this.cookie.get("USER");
+  public name = this.localStorage.getKey(Keys.USER);
   public comments: [] | any = [];
   private propertyId: string;
   private unsubscribe$: Subject<void> = new Subject<void>();
-
+  public _ROL = ROL;
   constructor(
-    private cookie: CookieService,
+    private localStorage: LocalStorageService,
     private router: Router,
     private home$: HomeService,
     private route: ActivatedRoute,

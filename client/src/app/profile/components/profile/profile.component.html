@@ -20,11 +20,11 @@
       </p>
     </div>
     <ng-container [ngSwitch]="datos.rol">
-      <div class="architects-profile-panel-list" *ngSwitchCase="'CLIENT'">
+      <div class="architects-profile-panel-list" *ngSwitchCase="_ROL.USER">
         <h3 class="architects-profile-panel-list-title">Yours favorites</h3>
         <app-cards [card]="card" *ngFor="let card of cards"></app-cards>
       </div>
-      <div class="architects-profile-panel-list" *ngSwitchCase="'ASESOR'">
+      <div class="architects-profile-panel-list" *ngSwitchCase="_ROL.ASESOR">
         <h3 class="architects-profile-panel-list-title">Your publications</h3>
         <app-cards [card]="card" *ngFor="let card of cards"></app-cards>
       </div>
@@ -32,14 +32,14 @@
   </aside>
   <main class="architects-profile-content" >
     <section class="architects-profile-content-card" [ngSwitch]="datos.rol">
-      <ng-container *ngSwitchCase="'CLIENT'">
+      <ng-container *ngSwitchCase="_ROL.USER">
         <app-band title="Tus Favoritos" [borderRadius]="true"></app-band>
         <app-grid-squares
         [items]="cards"
-        [showLikes]="datos.rol === 'CLIENT'"
+        [showLikes]="datos.rol === _ROL.USER"
         ></app-grid-squares>
       </ng-container>
-      <ng-container *ngSwitchCase="'ASESOR'">
+      <ng-container *ngSwitchCase="_ROL.ASESOR">
         <app-band title="Tus Favoritos" [borderRadius]="true" [showButton]="true" (buttonClick)="newInmueble()"></app-band>
         <app-grid-squares
         [items]="cards"

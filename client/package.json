@@ -29,7 +29,6 @@
     "@sweetalert2/ngx-sweetalert2": "^12.1.0",
     "compat": "^1.0.4",
     "ng-recaptcha": "^11.0.0",
-    "ngx-cookie-service": "^16.0.0",
     "ngx-toastr": "^17.0.2",
     "rxjs": "~7.8.1",
     "sweetalert2": "^11.2.1",

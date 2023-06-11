@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { CookieService } from 'ngx-cookie-service';
 import { ToastrService } from 'ngx-toastr';
 import { UserI } from 'src/app/models/user';
 import { SecurityService } from 'src/app/services/security.service';
@@ -10,7 +9,7 @@ import { SecurityService } from 'src/app/services/security.service';
 	styleUrls: [ './accounts.component.scss' ]
 })
 export class AccountsComponent implements OnInit {
-	constructor(private securityS: SecurityService, private cookie: CookieService, private toast: ToastrService) {}
+	constructor(private securityS: SecurityService, private toast: ToastrService) {}
 	accountList: UserI[] = [];
 	ngOnInit(): void {
 		this.obtenerUsuarios();

@@ -1,6 +1,7 @@
 import { Component, OnInit } from "@angular/core";
 import { NavigationEnd, Router } from "@angular/router";
-import { CookieService } from "ngx-cookie-service";
+import { Keys } from "@src/app/enums/global.enum";
+import { LocalStorageService } from "@src/app/services/local-storage.service";
 
 @Component({
   selector: "app-navbar",
@@ -8,7 +9,7 @@ import { CookieService } from "ngx-cookie-service";
   styleUrls: ["./navbar.component.scss"],
 })
 export class NavbarComponent implements OnInit {
-  public isLog: boolean = this.cookieService.check("ACCESS_TOKEN");
+  public isLog: boolean = this.localStorage.check();
   public title = "Architect";
   public list: any[] = [
     {
@@ -25,22 +26,21 @@ export class NavbarComponent implements OnInit {
   ngOnInit(): void {
     this.router.events.subscribe((event) => {
       if (event instanceof NavigationEnd) {
-        this.navDinamic(
-          this.cookieService.get("ACCESS_TOKEN"),
-          this.cookieService.get("USER"),
-          this.cookieService.get("ROL")
-        );
-        this.isLog= this.cookieService.check("ACCESS_TOKEN");
+        this.navDinamic();
       }
     });
   }
-  constructor(private cookieService: CookieService, private router: Router) {}
+  constructor(
+    private localStorage: LocalStorageService,
+    private router: Router
+  ) {}
 
-  navDinamic(token: string | null, name: string | null, rol: string | null) {
-    if (token && name && rol) {
+  navDinamic() {
+    this.isLog = this.localStorage.check();
+    if (this.isLog) {
       this.list = [
         {
-          name: `hello, ${name}`,
+          name: `hello, ${this.localStorage.getKey(Keys.USER)}`,
           url: "/profile/board",
           icon: "fas fa-clipboard",
         },
@@ -67,12 +67,8 @@ export class NavbarComponent implements OnInit {
   }
 
   async logout() {
+    this.localStorage.clearStorage();
+    this.navDinamic();
     this.router.navigate(["/"]);
-    this.cookieService.delete("ACCESS_TOKEN");
-    this.cookieService.delete("USER");
-    this.cookieService.delete("ROL");
-    this.navDinamic(null, null, null);
-    this.isLog = false;
-    location.reload();
   }
 }

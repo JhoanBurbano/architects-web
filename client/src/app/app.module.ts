@@ -9,7 +9,7 @@ import { AppComponent } from './app.component';
 import { HomeComponent } from './components/home/home.component';
 import { NotFoundComponent } from './components/not-found/not-found.component';
 import { UserTokenInterceptor } from './interceptors/user-token.interceptor';
-import { CookieService } from 'ngx-cookie-service';
+
 import { SecurityService } from './services/security.service';
 import { UserService } from './services/user.service';
 import { NavbarComponent } from './navbar/navbar/navbar.component';
@@ -41,7 +41,6 @@ import { SharedModule } from './shared/shared.module';
 	providers: [
 		SecurityService,
 		UserService,
-		CookieService,
 		{
 			provide: HTTP_INTERCEPTORS,
 			useClass: UserTokenInterceptor,

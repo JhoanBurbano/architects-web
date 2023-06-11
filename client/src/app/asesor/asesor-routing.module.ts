@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { AsesorGuard } from '../Guards/asesor.guard';
+import { AsesorGuard } from '../guards/asesor.guard';
 import { InmueblesComponent } from './components/inmuebles/inmuebles.component';
 import { NewInmbuebleComponent } from './components/new-inmbueble/new-inmbueble.component';
 
